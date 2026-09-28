@@ -1,0 +1,71 @@
+{
+  "model": "jev-1.13.0",
+  "n_target": 2000,
+  "prompts": {
+    "P1": {
+      "ok": 2000,
+      "errors": 0,
+      "invalid": 0,
+      "freq": {
+        "cat": 2000,
+        "dog": 0,
+        "bird": 0,
+        "fish": 0,
+        "horse": 0,
+        "cow": 0
+      },
+      "probabilities_identical_across_ok_trials": false,
+      "cache_bust_records": 0
+    },
+    "P2": {
+      "ok": 2000,
+      "errors": 0,
+      "invalid": 0,
+      "freq": {
+        "cat": 2000,
+        "dog": 0,
+        "bird": 0,
+        "fish": 0,
+        "horse": 0,
+        "cow": 0
+      },
+      "probabilities_identical_across_ok_trials": false,
+      "cache_bust_records": 0
+    },
+    "P3": {
+      "ok": 2000,
+      "errors": 0,
+      "invalid": 0,
+      "freq": {
+        "cat": 0,
+        "dog": 0,
+        "bird": 0,
+        "fish": 2000,
+        "horse": 0,
+        "cow": 0
+      },
+      "probabilities_identical_across_ok_trials": false,
+      "cache_bust_records": 0
+    },
+    "P3plus": {
+      "ok": 2000,
+      "errors": 0,
+      "invalid": 0,
+      "freq": {
+        "cat": 0,
+        "dog": 0,
+        "bird": 0,
+        "fish": 2000,
+        "horse": 0,
+        "cow": 0
+      },
+      "probabilities_identical_across_ok_trials": false,
+      "cache_bust_records": 0
+    }
+  },
+  "layout": "protocol",
+  "criteria_style": "describe",
+  "state_hash_chars": 0,
+  "labels": "animals",
+  "hash_prefix": false
+}

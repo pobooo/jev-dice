@@ -1,0 +1,72 @@
+{"id": "cat-clear-01", "target": "cat", "clarity": "clear", "text": "This small pet purrs while kneading a blanket with its paws."}
+{"id": "cat-clear-02", "target": "cat", "clarity": "clear", "text": "Whiskers frame its face, and it uses a litter box indoors."}
+{"id": "cat-clear-03", "target": "cat", "clarity": "clear", "text": "It arches its back, retracts its claws, and stalks mice at night."}
+{"id": "cat-clear-04", "target": "cat", "clarity": "clear", "text": "The furry pet meows for food and naps on a sunny windowsill."}
+{"id": "cat-medium-01", "target": "cat", "clarity": "medium", "text": "A small agile pet silently climbs furniture and lands on its feet."}
+{"id": "cat-medium-02", "target": "cat", "clarity": "medium", "text": "This independent house pet grooms itself with a rough tongue."}
+{"id": "cat-medium-03", "target": "cat", "clarity": "medium", "text": "At dusk, the compact predator watches the floor for tiny rodents."}
+{"id": "cat-medium-04", "target": "cat", "clarity": "medium", "text": "The household companion has pointed ears and likes scratching posts."}
+{"id": "cat-ambiguous-01", "target": "cat", "clarity": "ambiguous", "text": "A quiet furry companion curls up on a warm lap."}
+{"id": "cat-ambiguous-02", "target": "cat", "clarity": "ambiguous", "text": "The small four-legged pet waits beside an empty food bowl."}
+{"id": "cat-ambiguous-03", "target": "cat", "clarity": "ambiguous", "text": "An agile domestic animal watches movement from under a chair."}
+{"id": "cat-ambiguous-04", "target": "cat", "clarity": "ambiguous", "text": "This soft-coated companion spends much of the afternoon asleep."}
+{"id": "dog-clear-01", "target": "dog", "clarity": "clear", "text": "This loyal pet barks at strangers and wags its tail when excited."}
+{"id": "dog-clear-02", "target": "dog", "clarity": "clear", "text": "It fetches thrown sticks, pants after running, and wears a leash."}
+{"id": "dog-clear-03", "target": "dog", "clarity": "clear", "text": "The household companion guards the door and responds to a whistle."}
+{"id": "dog-clear-04", "target": "dog", "clarity": "clear", "text": "It follows scent trails with its nose and may howl at sirens."}
+{"id": "dog-medium-01", "target": "dog", "clarity": "medium", "text": "This social pet eagerly greets its owner and enjoys long walks."}
+{"id": "dog-medium-02", "target": "dog", "clarity": "medium", "text": "A trainable companion sits on command and waits for a treat."}
+{"id": "dog-medium-03", "target": "dog", "clarity": "medium", "text": "The four-legged helper can guide people or search for missing objects."}
+{"id": "dog-medium-04", "target": "dog", "clarity": "medium", "text": "This energetic domestic animal digs in the yard and chases balls."}
+{"id": "dog-ambiguous-01", "target": "dog", "clarity": "ambiguous", "text": "A friendly furry companion waits by the front door."}
+{"id": "dog-ambiguous-02", "target": "dog", "clarity": "ambiguous", "text": "The pet follows its owner from room to room."}
+{"id": "dog-ambiguous-03", "target": "dog", "clarity": "ambiguous", "text": "This four-legged animal enjoys attention and outdoor exercise."}
+{"id": "dog-ambiguous-04", "target": "dog", "clarity": "ambiguous", "text": "A domestic companion sleeps near the family at night."}
+{"id": "bird-clear-01", "target": "bird", "clarity": "clear", "text": "This feathered creature has a beak, wings, and builds a nest."}
+{"id": "bird-clear-02", "target": "bird", "clarity": "clear", "text": "It lays hard-shelled eggs and sings from a tree branch."}
+{"id": "bird-clear-03", "target": "bird", "clarity": "clear", "text": "The lightweight animal flaps through the air and perches on twigs."}
+{"id": "bird-clear-04", "target": "bird", "clarity": "clear", "text": "Its body is covered in feathers, and it pecks seeds from the ground."}
+{"id": "bird-medium-01", "target": "bird", "clarity": "medium", "text": "A small creature perches above the ground and calls at sunrise."}
+{"id": "bird-medium-02", "target": "bird", "clarity": "medium", "text": "It gathers grass and small sticks to make a home for its young."}
+{"id": "bird-medium-03", "target": "bird", "clarity": "medium", "text": "This two-legged animal hops along branches searching for seeds."}
+{"id": "bird-medium-04", "target": "bird", "clarity": "medium", "text": "The creature spreads its wings before leaving the rooftop."}
+{"id": "bird-ambiguous-01", "target": "bird", "clarity": "ambiguous", "text": "A small animal makes repeated calls from high in a tree."}
+{"id": "bird-ambiguous-02", "target": "bird", "clarity": "ambiguous", "text": "The light creature rests on a narrow branch."}
+{"id": "bird-ambiguous-03", "target": "bird", "clarity": "ambiguous", "text": "It visits a garden feeder early each morning."}
+{"id": "bird-ambiguous-04", "target": "bird", "clarity": "ambiguous", "text": "This animal moves quickly between trees and rooftops."}
+{"id": "fish-clear-01", "target": "fish", "clarity": "clear", "text": "This aquatic animal breathes through gills and swims with fins."}
+{"id": "fish-clear-02", "target": "fish", "clarity": "clear", "text": "Scales cover its body as it moves through water using its tail."}
+{"id": "fish-clear-03", "target": "fish", "clarity": "clear", "text": "It lives underwater, lacks legs, and takes oxygen through gills."}
+{"id": "fish-clear-04", "target": "fish", "clarity": "clear", "text": "The cold-blooded swimmer has fins on its body and a streamlined shape."}
+{"id": "fish-medium-01", "target": "fish", "clarity": "medium", "text": "This water-dwelling creature darts through a school beneath the surface."}
+{"id": "fish-medium-02", "target": "fish", "clarity": "medium", "text": "The animal glides around an aquarium and is fed small flakes."}
+{"id": "fish-medium-03", "target": "fish", "clarity": "medium", "text": "It moves through a pond by sweeping its tail from side to side."}
+{"id": "fish-medium-04", "target": "fish", "clarity": "medium", "text": "This small aquatic creature stays submerged throughout its life."}
+{"id": "fish-ambiguous-01", "target": "fish", "clarity": "ambiguous", "text": "A silent animal moves below the surface of a pond."}
+{"id": "fish-ambiguous-02", "target": "fish", "clarity": "ambiguous", "text": "The small creature lives in a glass tank filled with water."}
+{"id": "fish-ambiguous-03", "target": "fish", "clarity": "ambiguous", "text": "It travels in groups through the open water."}
+{"id": "fish-ambiguous-04", "target": "fish", "clarity": "ambiguous", "text": "This animal is commonly seen moving beneath a lake's surface."}
+{"id": "horse-clear-01", "target": "horse", "clarity": "clear", "text": "This large hoofed animal has a mane and carries a rider in a saddle."}
+{"id": "horse-clear-02", "target": "horse", "clarity": "clear", "text": "It gallops on four long legs and is controlled with reins."}
+{"id": "horse-clear-03", "target": "horse", "clarity": "clear", "text": "The stable animal neighs, wears horseshoes, and pulls a carriage."}
+{"id": "horse-clear-04", "target": "horse", "clarity": "clear", "text": "A rider mounts this powerful animal and holds its bridle."}
+{"id": "horse-medium-01", "target": "horse", "clarity": "medium", "text": "This tall grazing animal runs quickly across an open field."}
+{"id": "horse-medium-02", "target": "horse", "clarity": "medium", "text": "The large domesticated animal lives in a stable and eats hay."}
+{"id": "horse-medium-03", "target": "horse", "clarity": "medium", "text": "It has long legs, a flowing tail, and is used for riding."}
+{"id": "horse-medium-04", "target": "horse", "clarity": "medium", "text": "The muscular hoofed animal can jump fences at an equestrian event."}
+{"id": "horse-ambiguous-01", "target": "horse", "clarity": "ambiguous", "text": "A large four-legged animal grazes in a fenced field."}
+{"id": "horse-ambiguous-02", "target": "horse", "clarity": "ambiguous", "text": "This strong farm animal eats hay and needs a spacious shelter."}
+{"id": "horse-ambiguous-03", "target": "horse", "clarity": "ambiguous", "text": "The tall animal runs across grass with a person on its back."}
+{"id": "horse-ambiguous-04", "target": "horse", "clarity": "ambiguous", "text": "A domesticated grazer stands quietly near a wooden fence."}
+{"id": "cow-clear-01", "target": "cow", "clarity": "clear", "text": "This large farm animal moos and is milked in a dairy barn."}
+{"id": "cow-clear-02", "target": "cow", "clarity": "clear", "text": "It chews cud, has a broad muzzle, and produces milk for people."}
+{"id": "cow-clear-03", "target": "cow", "clarity": "clear", "text": "The hoofed livestock animal grazes in herds and may have an udder."}
+{"id": "cow-clear-04", "target": "cow", "clarity": "clear", "text": "This bovine farm animal gives birth to calves and feeds on pasture."}
+{"id": "cow-medium-01", "target": "cow", "clarity": "medium", "text": "A heavy farm animal spends the day grazing and chewing cud."}
+{"id": "cow-medium-02", "target": "cow", "clarity": "medium", "text": "This domesticated grazer lives in a barn and is raised for dairy."}
+{"id": "cow-medium-03", "target": "cow", "clarity": "medium", "text": "The broad-bodied herd animal has cloven hooves and eats grass."}
+{"id": "cow-medium-04", "target": "cow", "clarity": "medium", "text": "Farmers guide this large livestock animal into a milking area."}
+{"id": "cow-ambiguous-01", "target": "cow", "clarity": "ambiguous", "text": "A large farm animal grazes slowly in a green pasture."}
+{"id": "cow-ambiguous-02", "target": "cow", "clarity": "ambiguous", "text": "This heavy four-legged grazer lives with a herd."}
+{"id": "cow-ambiguous-03", "target": "cow", "clarity": "ambiguous", "text": "The domesticated animal eats hay beside a barn."}
+{"id": "cow-ambiguous-04", "target": "cow", "clarity": "ambiguous", "text": "A broad-bodied animal stands behind a fence on a farm."}

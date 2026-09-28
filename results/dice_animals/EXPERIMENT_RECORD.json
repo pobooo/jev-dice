@@ -1,0 +1,152 @@
+{
+  "recorded_at": "2026-09-23T15:55:13+08:00",
+  "experiment": "jev_dice_protocol_animals_describe",
+  "dir": "dice_animals",
+  "labels": [
+    "cat",
+    "dog",
+    "bird",
+    "fish",
+    "horse",
+    "cow"
+  ],
+  "layout": "protocol",
+  "criteria_style": "describe",
+  "hash": false,
+  "prompts": {
+    "P1": {
+      "n": 2000,
+      "errors": 0,
+      "choice_freq": {
+        "cat": 2000,
+        "dog": 0,
+        "bird": 0,
+        "fish": 0,
+        "horse": 0,
+        "cow": 0
+      },
+      "mean_p": {
+        "cat": 0.440475,
+        "dog": 0.234015,
+        "bird": 0.14084,
+        "fish": 0.09288,
+        "horse": 0.04863,
+        "cow": 0.04314
+      },
+      "mean_conf": 0.328685
+    },
+    "P2": {
+      "n": 2000,
+      "errors": 0,
+      "choice_freq": {
+        "cat": 2000,
+        "dog": 0,
+        "bird": 0,
+        "fish": 0,
+        "horse": 0,
+        "cow": 0
+      },
+      "mean_p": {
+        "cat": 0.79093,
+        "dog": 0.064365,
+        "bird": 0.040685,
+        "fish": 0.039065,
+        "horse": 0.028765,
+        "cow": 0.03594
+      },
+      "mean_conf": 0.751285
+    },
+    "P3": {
+      "n": 2000,
+      "errors": 0,
+      "choice_freq": {
+        "cat": 0,
+        "dog": 0,
+        "bird": 0,
+        "fish": 2000,
+        "horse": 0,
+        "cow": 0
+      },
+      "mean_p": {
+        "cat": 0.055055,
+        "dog": 0.086185,
+        "bird": 0.077555,
+        "fish": 0.708765,
+        "horse": 0.03048,
+        "cow": 0.041905
+      },
+      "mean_conf": 0.650035
+    },
+    "P3plus": {
+      "n": 2000,
+      "errors": 0,
+      "choice_freq": {
+        "cat": 0,
+        "dog": 0,
+        "bird": 0,
+        "fish": 2000,
+        "horse": 0,
+        "cow": 0
+      },
+      "mean_p": {
+        "cat": 0.045665,
+        "dog": 0.07875,
+        "bird": 0.05828,
+        "fish": 0.755175,
+        "horse": 0.02623,
+        "cow": 0.0359
+      },
+      "mean_conf": 0.7071
+    }
+  },
+  "request_examples": {
+    "P1": {
+      "state": "A fair six-sided die is rolled once. Each face shows a different animal.",
+      "instructions": "Which animal is the outcome?",
+      "criteria": {
+        "cat": "The outcome is cat.",
+        "dog": "The outcome is dog.",
+        "bird": "The outcome is bird.",
+        "fish": "The outcome is fish.",
+        "horse": "The outcome is horse.",
+        "cow": "The outcome is cow."
+      }
+    },
+    "P2": {
+      "state": "A fair six-sided die is rolled once. The faces are [cat, dog, bird, fish, horse, cow].",
+      "instructions": "Which animal is the outcome?",
+      "criteria": {
+        "cat": "The outcome is cat.",
+        "dog": "The outcome is dog.",
+        "bird": "The outcome is bird.",
+        "fish": "The outcome is fish.",
+        "horse": "The outcome is horse.",
+        "cow": "The outcome is cow."
+      }
+    },
+    "P3": {
+      "state": "A fair six-sided die is rolled once. The faces are [fish, dog, cow, cat, horse, bird].",
+      "instructions": "Which animal is the outcome?",
+      "criteria": {
+        "fish": "The outcome is fish.",
+        "dog": "The outcome is dog.",
+        "cow": "The outcome is cow.",
+        "cat": "The outcome is cat.",
+        "horse": "The outcome is horse.",
+        "bird": "The outcome is bird."
+      }
+    },
+    "P3plus": {
+      "state": "A fair six-sided die is rolled once. The faces are [fish, dog, cow, cat, horse, bird]. Each face is equally likely.",
+      "instructions": "Which animal is the outcome?",
+      "criteria": {
+        "fish": "The outcome is fish.",
+        "dog": "The outcome is dog.",
+        "cow": "The outcome is cow.",
+        "cat": "The outcome is cat.",
+        "horse": "The outcome is horse.",
+        "bird": "The outcome is bird."
+      }
+    }
+  }
+}

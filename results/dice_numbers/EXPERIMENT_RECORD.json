@@ -1,0 +1,149 @@
+{
+  "recorded_at": "2026-09-23T15:14:17+08:00",
+  "experiment": "jev_dice_protocol_criteria_describe",
+  "dir": "dice_numbers",
+  "layout": "protocol",
+  "criteria_style": "describe",
+  "hash_prefix": false,
+  "n_per_prompt": 2000,
+  "prompts": {
+    "P1": {
+      "n": 2000,
+      "errors": 0,
+      "choice_freq": {
+        "1": 2000,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0
+      },
+      "mean_p": {
+        "1": 0.868255,
+        "2": 0.010235,
+        "3": 0.030495,
+        "4": 0.035655,
+        "5": 0.01,
+        "6": 0.04536
+      },
+      "mean_conf": 0.84251,
+      "mean_E": 1.44499
+    },
+    "P2": {
+      "n": 2000,
+      "errors": 0,
+      "choice_freq": {
+        "1": 2000,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0
+      },
+      "mean_p": {
+        "1": 0.74814,
+        "2": 0.019925,
+        "3": 0.066535,
+        "4": 0.10511,
+        "5": 0.010275,
+        "6": 0.05001
+      },
+      "mean_conf": 0.69728,
+      "mean_E": 1.75947
+    },
+    "P3": {
+      "n": 2000,
+      "errors": 0,
+      "choice_freq": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 2000,
+        "5": 0,
+        "6": 0
+      },
+      "mean_p": {
+        "1": 0.215105,
+        "2": 0.057405,
+        "3": 0.07554,
+        "4": 0.511975,
+        "5": 0.04444,
+        "6": 0.09538
+      },
+      "mean_conf": 0.41446,
+      "mean_E": 3.398915
+    },
+    "P3plus": {
+      "n": 2000,
+      "errors": 0,
+      "choice_freq": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 2000,
+        "5": 0,
+        "6": 0
+      },
+      "mean_p": {
+        "1": 0.26944,
+        "2": 0.062785,
+        "3": 0.06169,
+        "4": 0.49713,
+        "5": 0.033645,
+        "6": 0.075305
+      },
+      "mean_conf": 0.395755,
+      "mean_E": 3.188655
+    }
+  },
+  "request_examples": {
+    "P1": {
+      "state": "A fair six-sided die is rolled once.",
+      "instructions": "Which face landed up?",
+      "criteria": {
+        "1": "The die came to rest with the 1 face pointing up.",
+        "2": "The die came to rest with the 2 face pointing up.",
+        "3": "The die came to rest with the 3 face pointing up.",
+        "4": "The die came to rest with the 4 face pointing up.",
+        "5": "The die came to rest with the 5 face pointing up.",
+        "6": "The die came to rest with the 6 face pointing up."
+      }
+    },
+    "P2": {
+      "state": "A fair six-sided die is rolled once. The faces are [1, 2, 3, 4, 5, 6].",
+      "instructions": "Which face landed up?",
+      "criteria": {
+        "1": "The die came to rest with the 1 face pointing up.",
+        "2": "The die came to rest with the 2 face pointing up.",
+        "3": "The die came to rest with the 3 face pointing up.",
+        "4": "The die came to rest with the 4 face pointing up.",
+        "5": "The die came to rest with the 5 face pointing up.",
+        "6": "The die came to rest with the 6 face pointing up."
+      }
+    },
+    "P3": {
+      "state": "A fair six-sided die is rolled once. The faces are [4, 2, 6, 1, 5, 3].",
+      "instructions": "Which face landed up?",
+      "criteria": {
+        "4": "The die came to rest with the 4 face pointing up.",
+        "2": "The die came to rest with the 2 face pointing up.",
+        "6": "The die came to rest with the 6 face pointing up.",
+        "1": "The die came to rest with the 1 face pointing up.",
+        "5": "The die came to rest with the 5 face pointing up.",
+        "3": "The die came to rest with the 3 face pointing up."
+      }
+    },
+    "P3plus": {
+      "state": "A fair six-sided die is rolled once. The faces are [4, 2, 6, 1, 5, 3]. Each face is equally likely.",
+      "instructions": "Which face landed up?",
+      "criteria": {
+        "4": "The die came to rest with the 4 face pointing up.",
+        "2": "The die came to rest with the 2 face pointing up.",
+        "6": "The die came to rest with the 6 face pointing up.",
+        "1": "The die came to rest with the 1 face pointing up.",
+        "5": "The die came to rest with the 5 face pointing up.",
+        "3": "The die came to rest with the 3 face pointing up."
+      }
+    }
+  }
+}

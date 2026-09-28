@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Does Jev Play Dice?</title>
+  <style>
+    :root {
+      --ink: #1a1916;
+      --muted: #5c5852;
+      --line: #ddd8cf;
+      --paper: #f7f3ec;
+      --card: #fffcf7;
+      --accent: #8f1d1d;
+      --navy: #1f3d5c;
+      --ok: #2a5a3a;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font: 17px/1.65 "Iowan Old Style", "Palatino Linotype", Palatino, "Songti SC", "Noto Serif SC", serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    header.hero {
+      border-bottom: 1px solid var(--line);
+      padding: 56px 24px 40px;
+      background: var(--card);
+    }
+    .wrap { max-width: 860px; margin: 0 auto; }
+    .kicker {
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 12px;
+    }
+    h1 {
+      font-size: clamp(36px, 6vw, 56px);
+      line-height: 1.15;
+      font-weight: 600;
+      margin: 0 0 16px;
+      letter-spacing: -0.02em;
+    }
+    .lede { font-size: 20px; color: var(--muted); margin: 0; max-width: 40em; }
+    .subtitle {
+      margin: -4px 0 16px;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--navy);
+    }
+    .byline {
+      margin: 0;
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .byline a { color: inherit; }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: color-mix(in srgb, var(--paper) 88%, white);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav .wrap {
+      display: flex;
+      gap: 22px;
+      padding: 10px 24px;
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+      font-size: 13px;
+    }
+    nav a { color: var(--muted); text-decoration: none; }
+    nav a:hover { color: var(--ink); }
+    main { padding: 8px 24px 80px; }
+    section { padding: 36px 0 8px; }
+    h2 {
+      font-size: 26px;
+      margin: 0 0 14px;
+      font-weight: 600;
+    }
+    h3 { font-size: 18px; margin: 28px 0 10px; }
+    p { margin: 0 0 14px; }
+    .answer {
+      border-left: 3px solid var(--accent);
+      padding: 8px 0 8px 18px;
+      margin: 18px 0 24px;
+      font-size: 22px;
+      font-style: italic;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 22px 0 8px;
+    }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 14px 14px 12px;
+    }
+    .stat b {
+      display: block;
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .stat span { font-size: 13px; color: var(--muted); }
+    .findings {
+      list-style: none;
+      counter-reset: finding;
+      padding: 0;
+      margin: 26px 0 22px;
+      border-top: 1px solid var(--line);
+    }
+    .findings li {
+      counter-increment: finding;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .findings li::before {
+      content: counter(finding);
+      color: var(--accent);
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .findings strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--navy);
+      font-size: 18px;
+    }
+    .findings p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      background: var(--card);
+      margin: 12px 0 20px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+      background: #efeae1;
+    }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    figure { margin: 20px 0 28px; }
+    figure img, figure object {
+      width: 100%;
+      height: auto;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+    figcaption {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+    }
+    code, .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.86em;
+    }
+    .note { color: var(--muted); font-size: 15px; }
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 24px 48px;
+      color: var(--muted);
+      font-size: 13px;
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+    }
+    @media (max-width: 720px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+      nav .wrap { flex-wrap: wrap; gap: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <h1>Does Jev Play Dice?</h1>
+      <p class="subtitle">Systematic bias in non-deterministic decisions</p>
+      <p class="byline">By Qiang Liu (<a href="https://qiangliu.net">qiangliu.net</a>) · Experiments and writing assisted by AI · <a href="zh/">中文版</a></p>
+    </div>
+  </header>
+  <nav>
+    <div class="wrap">
+      <a href="#conclusion">Conclusion</a>
+      <a href="#method">Method</a>
+      <a href="#prompts">Prompts</a>
+      <a href="#by-key">By die face</a>
+      <a href="#by-pos">By position</a>
+      <a href="#p3alt">Reordering</a>
+      <a href="#describe">Guess the animal</a>
+      <a href="#favorite">Favorite animal</a>
+    </div>
+  </nav>
+  <main class="wrap">
+    <section id="conclusion">
+      <h2>Conclusion</h2>
+      <p class="answer">
+        Jev cannot roll a fair die. More generally, when a choice has no single correct answer, its output is influenced by the position of the options and by the words themselves, producing systematic bias.
+      </p>
+      <p>
+        We previously studied GPT-4’s ability to generate random numbers (<a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf"><em>Does GPT-4 Play Dice?</em></a> [1]). This time we apply a similar approach to Jev.
+        We ran five experiments with <span class="mono">jev-1.13.0</span>.
+        When all six outcomes should be equally likely, Jev does not produce anything close to a uniform choice or probability distribution. Instead, it clearly favors the option listed first.
+        Beyond position, the words themselves matter too: the number 1 and dog receive more probability than the other options.
+      </p>
+      <p><strong>
+        This is not just about dice. It points to a broader risk:
+        in non-deterministic decisions — situations with no single correct answer, where several options could all be reasonable —
+        Jev’s output may be shaped by option position and wording rather than reflecting only the preference the task is meant to express.
+        Recommendation, ranking, routing, candidate selection, and tie-breaking can all pick up subtle systematic bias as a result.
+      </strong></p>
+      <p class="note">
+        In this report, a <strong>non-deterministic decision</strong> means a task with no objectively unique answer, where several options could all be reasonable.
+        “Non-deterministic” describes the task, not how the model produces output: Jev does not sample an answer at random. It assigns each option a probability and picks the one with the highest probability.
+      </p>
+      <h3>What we did</h3>
+      <p>The study has five steps:</p>
+      <ol>
+        <li><strong>Number die:</strong> Ask Jev for the outcome of a roll among six equally likely faces (Sections 1 and 2).</li>
+        <li><strong>Animal die:</strong> Replace the numbers with six animals to see whether the bias persists (Sections 1 and 2).</li>
+        <li><strong>Moving the number 1:</strong> Change where the number 1 appears, to separate the effect of position from the effect of the word (Section 3).</li>
+        <li><strong>Guess the animal:</strong> Have Jev read 72 different animal descriptions and name the animal. These questions have a single correct answer, making them deterministic decisions. They test whether the bias from option order also affects this kind of judgment (Section 4).</li>
+        <li><strong>Favorite animal:</strong> Try all 720 orderings of the six animals to see how subjective preference and option order jointly shape the result (Section 5).</li>
+      </ol>
+      <h3>Main findings</h3>
+      <ol class="findings">
+        <li>
+          <div>
+            <strong>Jev cannot produce fair dice rolls</strong>
+            <p>All six faces should be equally likely, yet across 2,000 requests of the same prompt, Jev picked the first-listed number every time.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>The first-option bias is not limited to numbers</strong>
+            <p>With the six numbers replaced by animals, Jev still favors the first option: it picks cat in the natural order and switches to fish once the order is shuffled.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>The words themselves also affect probability</strong>
+            <p>When the number 1 is placed 4th or 5th, the probability at that position rises noticeably. When the prompt does not say which animals are on the die, dog, listed second, still receives 0.23, whereas the number 2, listed second in the number prompt, receives only 0.01.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>With a single correct answer, order barely matters</strong>
+            <p>When Jev guesses the animal from 72 different descriptions, 71 answers stay the same after the options are reordered. Every description with clear or medium clues is answered correctly.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>Subjective choice reflects both existing preference and position bias</strong>
+            <p>Across 720 orderings, Jev chose dog 599 times; but whenever cat was listed first, it chose cat all 120 times. Other animals listed first usually could not beat dog.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>This bias can carry into real applications</strong>
+            <p>In recommendation, ranking, routing, or candidate selection, options listed earlier and more appealing words may be overrated. The weaker the evidence and the closer the options, the higher the risk.</p>
+          </div>
+        </li>
+      </ol>
+      <p>
+        So Jev’s choices should not be treated as random numbers, nor should we assume they are unaffected by order when there is no single right answer.
+        Fair sampling should happen outside the model. For non-deterministic decisions, rotate the option order, compare multiple orderings, and calibrate for position and wording effects on real data.
+      </p>
+    </section>
+
+    <section id="method">
+      <h2>Method</h2>
+      <p>
+        The study looks at single rolls only. Each request has three parts:
+        the context says “a fair die was rolled once,” the question asks which face landed up, and the options give a fully symmetric description of each of the six faces.
+      </p>
+      <p>
+        The model is fixed at <span class="mono">jev-1.13.0</span>. The number die uses the options 1–6; the animal die uses
+        cat, dog, bird, fish, horse, cow.
+        <strong>The “animal die” is still a fair six-sided die; each of the six numbers is simply replaced by an animal name, one animal per face.</strong>
+        This lets us check whether the bias comes from the numbers themselves or from where each option is listed.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Experiment</th>
+            <th>Question</th>
+            <th>Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Number die</td><td>Which face landed up?</td><td>3 prompts × 2,000</td></tr>
+          <tr><td>Animal die</td><td>Which animal is the outcome?</td><td>3 prompts × 2,000</td></tr>
+          <tr><td>Number die, reshuffled</td><td>Which face landed up?</td><td>1 prompt × 2,000</td></tr>
+          <tr><td>Guess the animal from a description</td><td>Which animal does this sentence describe?</td><td>72 sentences × 2 orders</td></tr>
+          <tr><td>Pick a favorite animal</td><td>Which animal do you like best?</td><td>All 720 orderings</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Besides an answer, Jev returns a probability for each option, and the probabilities sum to 1. The dice charts show the average of these probabilities over 2,000 identical requests.</p>
+    </section>
+
+    <section id="prompts">
+      <h2>How the prompts differ</h2>
+      <p>The question stays the same. We only change whether the context lists the six faces, and in what order.</p>
+      <h3>Number die · Which face landed up?</h3>
+      <table>
+        <thead>
+          <tr><th></th><th>What the context adds</th><th>Option order</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Base</td><td>Only “a fair die was rolled once”; the six faces are not listed</td><td>1, 2, 3, 4, 5, 6</td></tr>
+          <tr><td>Natural order</td><td>Lists <span class="mono">[1, 2, 3, 4, 5, 6]</span></td><td>1, 2, 3, 4, 5, 6</td></tr>
+          <tr><td>Shuffled order</td><td>Lists <span class="mono">[4, 2, 6, 1, 5, 3]</span></td><td>4, 2, 6, 1, 5, 3</td></tr>
+          <tr><td>Reshuffled</td><td>Lists <span class="mono">[5, 3, 2, 6, 1, 4]</span>, moving 1 from 4th to 5th</td><td>5, 3, 2, 6, 1, 4</td></tr>
+        </tbody>
+      </table>
+      <h3>Animal die · Which animal is the outcome?</h3>
+      <table>
+        <thead>
+          <tr><th></th><th>What the context adds</th><th>Option order</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Base</td><td>Does not name the animals</td><td>cat, dog, bird, fish, horse, cow</td></tr>
+          <tr><td>Natural order</td><td>Lists the six animals</td><td>cat, dog, bird, fish, horse, cow</td></tr>
+          <tr><td>Shuffled order</td><td>Shuffled the same way as the number die</td><td>fish, dog, cow, cat, horse, bird</td></tr>
+        </tbody>
+      </table>
+      <p>To keep the wording consistent, all six options use the same sentence pattern, changing only the number or animal name.</p>
+    </section>
+
+    <section id="by-key">
+      <h2>1. Number die and animal die: probability by die face</h2>
+      <p>
+        Sections 1 and 2 use the same data — three prompts each for the number die and the animal die, 2,000 requests per prompt — viewed by die face and by option position respectively.
+      </p>
+      <p>
+        This chart compares the average probability each number or animal receives. In the natural order, the number 1 and cat receive the highest probability.
+        In the shuffled order <span class="mono">[4, 2, 6, 1, 5, 3]</span>, the number 4 is listed first and the number 1 is fourth.
+        The highest probability moves to the first option, 4, but the number 1 still keeps a clear second peak.
+      </p>
+      <p>
+        The animal die uses the matching order, with fish first and cat fourth; here only fish stands out.
+        In addition, in the base prompt the context does not say which animals are on the die, but the options are still listed starting with cat and dog. There, cat gets only 0.44 and dog, listed second, still gets 0.23, possibly because “dog” is a more common word. Under the same conditions for the number die, the first option, 1, gets 0.87 and the second option, 2, gets only 0.01. Red bars mark the highest-probability option in each panel.
+      </p>
+      <figure>
+        <img src="img/by-key.svg?v=1" alt="Average probability of each number and animal under each prompt" />
+        <figcaption>Figure 1 · <strong>The x-axis is the die face:</strong> the top row shows the numbers 1–6, the bottom row the six animals. Each face is always drawn under its own number or animal name; the dashed line marks 1/6, the probability for a fair die. Each prompt was requested 2,000 times.</figcaption>
+      </figure>
+      <p>
+        <strong>Summary:</strong> Each face of a fair die should get 1/6, yet whether the faces are numbers or animals, Jev gives most of the probability to a single option, and that option changes with the order: whichever is listed first gets the highest probability.
+        On top of that, the words “1” and “dog” receive some extra probability of their own.
+      </p>
+    </section>
+
+    <section id="by-pos">
+      <h2>2. Probability by option position</h2>
+      <p>
+        When the x-axis shows where each option is listed, the difference between numbers and animals largely disappears: every curve peaks at position 1, and most other positions fall below 1/6.
+        The number die has a smaller second peak at position 4, because that is where the number 1 sits.
+        In the animal die the same position holds cat, and no similar peak appears there: cat gets only about 0.06. The first-option bias is the strongest effect; the words themselves have a smaller one.
+      </p>
+      <figure>
+        <img src="img/by-position.svg?v=1" alt="Average probability at each option position for the number die and animal die" />
+        <figcaption>Figure 2 · Average probability at each position. The dotted line marks 1/6.</figcaption>
+      </figure>
+      <p>
+        <strong>Summary:</strong> Viewed by position, the number die and animal die curves have almost the same shape, so what mainly determines the result is where an option is listed, not what is written on the face.
+        The difference at position 4 (a peak for the number 1, none for cat) comes from the word itself, and it is much smaller than the first-option bias.
+      </p>
+    </section>
+
+    <section id="p3alt">
+      <h2>3. Move the number 1: does the peak follow it?</h2>
+      <p>
+        In the original shuffled order <span class="mono">[4, 2, 6, 1, 5, 3]</span>, the number 1 is fourth.
+        The new order <span class="mono">[5, 3, 2, 6, 1, 4]</span> moves 1 to fifth place and makes 5 the first option.
+        Every answer is now 5; the 4 that used to be first moves to last and is no longer chosen.
+      </p>
+      <p>
+        The second peak moves with the number 1. Look at position 5: in the original order it holds the number 5, with a probability of only 0.04; in the new order it holds the number 1, and the probability rises to 0.15, about 3.5 times higher.
+        Position 4 changes from the number 1 to the number 6, and its probability drops from 0.22 to 0.16.
+      </p>
+      <figure>
+        <img src="img/p3alt.svg?v=1" alt="Average probability at each position under the two shuffled orders, with the position of the number 1 marked" />
+        <figcaption>Figure 3 · The highest probability always sits at the first option. When the number 1 moves from position 4 to position 5, the probability at position 5 rises clearly and the probability at position 4 falls.</figcaption>
+      </figure>
+      <p>
+        <strong>Summary:</strong> After the number 1 moves, the highest probability still follows the first option, while the second peak follows the number 1.
+        Position bias and word bias come from different sources, and both can appear in the same question.
+      </p>
+    </section>
+
+    <section id="describe">
+      <h2>4. Guess the animal from a description (deterministic decision)</h2>
+      <p>
+        The dice questions have no correct answer. This section switches to questions with a single correct answer, to see whether the position bias still appears.
+        Jev reads an English description and answers <span class="mono">Which animal does this sentence describe?</span>, choosing from the same six animals.
+      </p>
+      <p>
+        We wrote 72 distinct descriptions, 12 per animal, none of which names the animal. They fall into three levels by how many clues they contain — clear, medium, and vague — with 4 sentences per level for each animal. For example:
+      </p>
+      <ul>
+        <li>Clear (dog): <em>This loyal pet barks at strangers and wags its tail when excited.</em></li>
+        <li>Medium (cat): <em>A small agile pet silently climbs furniture and lands on its feet.</em></li>
+        <li>Vague (cow): <em>A large farm animal grazes slowly in a green pasture.</em> (This could also be a horse.)</li>
+      </ul>
+      <p>
+        Each sentence was tested once with each of two option orders: the natural order starting with cat, and a shuffled order starting with fish — 144 requests in total.
+      </p>
+      <p>
+        Clear and medium sentences were all answered correctly under both orders, and clear sentences gave the correct animal a probability of 100%. On vague sentences, accuracy dropped to 75% in the natural order and 79% in the shuffled order, with most errors between similar animals such as cat/dog and horse/cow.
+      </p>
+      <p>
+        Only 1 of the 72 sentences changed its answer after reordering: <em>This soft-coated companion spends much of the afternoon asleep.</em> The correct answer is cat.
+        In the natural order, with cat listed first, Jev answered dog; after shuffling, with cat in fourth place, Jev got it right. It did not switch to the new first option, fish.
+      </p>
+      <figure>
+        <img src="img/descriptions.svg?v=1" alt="Accuracy by clarity, probability of the correct answer, and change in probability after reordering" />
+        <figcaption>Figure 4 · Left: accuracy. Middle: average probability of the correct animal. Right: change in the probability of the correct animal after reordering; a label such as “1→4” under the x-axis means the animal moved from 1st place in the natural order to 4th place in the shuffled order. The right panel’s y-axis tops out at only about 0.03; fish moved from 4th place to 1st and its average change is still 0.</figcaption>
+      </figure>
+      <p>
+        <strong>Summary:</strong> When a question has a single correct answer and the sentence contains enough clues, Jev answers based on content. Option order barely affects the result, and the “always pick the first option” pattern from the dice questions does not appear.
+        With vague clues Jev makes mistakes, but mostly by confusing similar animals, not by favoring the first-listed option.
+        Position bias mainly shows up in non-deterministic decisions, where there is little basis for judgment.
+      </p>
+    </section>
+
+    <section id="favorite">
+      <h2>5. Let Jev pick its favorite animal</h2>
+      <p>
+        The question is <span class="mono">Which animal do you like best?</span> The context and the answer options list the animals in the same order, and every option uses the same sentence pattern.
+        Each of the 720 orderings of the six animals was requested once, so every animal appears at every position 120 times.
+      </p>
+      <p>
+        Dog was chosen 599 times. Even when listed 2nd through 6th, it still won about 80% of the time, and its average probability always stayed above 0.5.
+        In the 120 orderings with cat first, Jev chose cat every time; when cat was not first, it never won. Bird, fish, and cow never won even when listed first. Horse won only once, with a probability of 0.37 against dog’s 0.35.
+      </p>
+      <figure>
+        <img src="img/favorite.svg?v=1" alt="Average probability of each animal at each list position, and counts of the final choice over 720 orderings" />
+        <figcaption>Figure 5 · In the preference question, the first-listed animal does not necessarily win. Only an animal that is already well liked (cat) can beat dog when listed first.</figcaption>
+      </figure>
+      <p>
+        <strong>Summary:</strong> “Which animal do you like best?” also has no single right answer, but Jev clearly prefers dog, so position bias alone does not decide the result: the first-listed animal wins only if it is also well liked (like cat).
+        In other words, Jev’s subjective choice is determined jointly by its existing preference and a boost from position; simply reordering the same options can change the answer.
+      </p>
+    </section>
+
+  </main>
+  <footer>
+    <div class="wrap">
+      <strong>References</strong><br />
+      [1] Qiang Liu. <em>Does GPT-4 Play Dice?</em>
+      <a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf">https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf</a>
+    </div>
+  </footer>
+</body>
+</html>

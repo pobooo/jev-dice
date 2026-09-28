@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jev 掷骰子吗？</title>
+  <style>
+    :root {
+      --ink: #1a1916;
+      --muted: #5c5852;
+      --line: #ddd8cf;
+      --paper: #f7f3ec;
+      --card: #fffcf7;
+      --accent: #8f1d1d;
+      --navy: #1f3d5c;
+      --ok: #2a5a3a;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font: 17px/1.65 "Iowan Old Style", "Palatino Linotype", Palatino, "Songti SC", "Noto Serif SC", serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+    header.hero {
+      border-bottom: 1px solid var(--line);
+      padding: 56px 24px 40px;
+      background: var(--card);
+    }
+    .wrap { max-width: 860px; margin: 0 auto; }
+    .kicker {
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 12px;
+    }
+    h1 {
+      font-size: clamp(36px, 6vw, 56px);
+      line-height: 1.15;
+      font-weight: 600;
+      margin: 0 0 16px;
+      letter-spacing: -0.02em;
+    }
+    .lede { font-size: 20px; color: var(--muted); margin: 0; max-width: 40em; }
+    .subtitle {
+      margin: -4px 0 16px;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--navy);
+    }
+    .byline {
+      margin: 0;
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .byline a { color: inherit; }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: color-mix(in srgb, var(--paper) 88%, white);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav .wrap {
+      display: flex;
+      gap: 22px;
+      padding: 10px 24px;
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+      font-size: 13px;
+    }
+    nav a { color: var(--muted); text-decoration: none; }
+    nav a:hover { color: var(--ink); }
+    main { padding: 8px 24px 80px; }
+    section { padding: 36px 0 8px; }
+    h2 {
+      font-size: 26px;
+      margin: 0 0 14px;
+      font-weight: 600;
+    }
+    h3 { font-size: 18px; margin: 28px 0 10px; }
+    p { margin: 0 0 14px; }
+    .answer {
+      border-left: 3px solid var(--accent);
+      padding: 8px 0 8px 18px;
+      margin: 18px 0 24px;
+      font-size: 22px;
+      font-style: italic;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 22px 0 8px;
+    }
+    .stat {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 14px 14px 12px;
+    }
+    .stat b {
+      display: block;
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .stat span { font-size: 13px; color: var(--muted); }
+    .findings {
+      list-style: none;
+      counter-reset: finding;
+      padding: 0;
+      margin: 26px 0 22px;
+      border-top: 1px solid var(--line);
+    }
+    .findings li {
+      counter-increment: finding;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      padding: 17px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .findings li::before {
+      content: counter(finding);
+      color: var(--accent);
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .findings strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--navy);
+      font-size: 18px;
+    }
+    .findings p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      background: var(--card);
+      margin: 12px 0 20px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+      background: #efeae1;
+    }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    figure { margin: 20px 0 28px; }
+    figure img, figure object {
+      width: 100%;
+      height: auto;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+    figcaption {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+    }
+    code, .mono {
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: 0.86em;
+    }
+    .note { color: var(--muted); font-size: 15px; }
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 24px 48px;
+      color: var(--muted);
+      font-size: 13px;
+      font-family: "Avenir Next", "PingFang SC", sans-serif;
+    }
+    @media (max-width: 720px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+      nav .wrap { flex-wrap: wrap; gap: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <h1>Jev 掷骰子吗？</h1>
+      <p class="subtitle">非确定性决策中的系统性偏差</p>
+      <p class="byline">作者：Qiang Liu（<a href="https://qiangliu.net">qiangliu.net</a>）· 实验与报告撰写由 AI 辅助完成 · <a href="../">English</a></p>
+    </div>
+  </header>
+  <nav>
+    <div class="wrap">
+      <a href="#conclusion">结论</a>
+      <a href="#method">方法</a>
+      <a href="#prompts">题目设计</a>
+      <a href="#by-key">按骰面内容</a>
+      <a href="#by-pos">按位置</a>
+      <a href="#p3alt">再次换序</a>
+      <a href="#describe">猜动物</a>
+      <a href="#favorite">动物偏好</a>
+    </div>
+  </nav>
+  <main class="wrap">
+    <section id="conclusion">
+      <h2>结论</h2>
+      <p class="answer">
+        Jev 不能公平地掷骰子。更一般地说，在没有唯一正确答案的选择中，它的输出会受到选项位置和词语本身的影响，产生系统性偏差。
+      </p>
+      <p>
+        我们之前研究过 GPT-4 生成随机数的能力（<a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf"><em>Does GPT-4 Play Dice?</em></a> [1]），这次沿用类似的思路测试 Jev。
+        我们用 <span class="mono">jev-1.13.0</span> 做了五组实验。
+        当六个结果本应等可能时，Jev 没有生成接近均匀的选择或概率分布，而是明显偏向排在第一的选项。
+        除了位置，词语本身也有影响：数字 1 和 dog 会比其他选项获得更多概率。
+      </p>
+      <p><strong>
+        这种现象不只关系到掷骰子。它提示了一类更广泛的风险：
+        在非确定性决策中——也就是没有唯一正确答案、多个选项都可能合理的场景——
+        Jev 的输出可能被选项位置和词语本身影响，而不是只反映任务需要表达的偏好。
+        推荐、排序、路由、候选方案选择和平局裁决等应用，都可能因此产生不易察觉的系统性偏差。
+      </strong></p>
+      <p class="note">
+        本文把“没有客观唯一答案、多个选项都可能合理”的任务称为<strong>非确定性决策</strong>。
+        “非确定性”描述的是任务，不是模型的输出方式：Jev 不会随机抽取答案，而是给每个选项一个概率，并选择概率最高的一项。
+      </p>
+      <h3>我们做了什么</h3>
+      <p>实验分为五步：</p>
+      <ol>
+        <li><strong>数字骰子：</strong>让 Jev 在六个等可能的点数中选择结果（第 1、2 节）。</li>
+        <li><strong>动物骰子：</strong>把点数换成六种动物，观察偏差是否仍然存在（第 1、2 节）。</li>
+        <li><strong>挪动数字 1：</strong>改变数字 1 的位置，区分位置影响和词语影响（第 3 节）。</li>
+        <li><strong>猜动物：</strong>让 Jev 读 72 条不同的动物描述并猜出是哪种动物。这类题有唯一正确答案，属于确定性决策，用来检验选项顺序带来的偏差是否也会影响这类任务的判断（第 4 节）。</li>
+        <li><strong>动物偏好：</strong>遍历六种动物的全部 720 种排列，观察主观偏好与选项顺序如何共同影响结果（第 5 节）。</li>
+      </ol>
+      <h3>主要结果</h3>
+      <ol class="findings">
+        <li>
+          <div>
+            <strong>Jev 不能生成公平的骰子结果</strong>
+            <p>六个点数本应等可能，但同一道题请求 2000 次，Jev 每次都选排在第一的点数。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>第一项偏差不只出现在数字上</strong>
+            <p>把 1–6 换成六种动物后，Jev 仍然偏向第一项：自然顺序选 cat，打乱顺序后改选 fish。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>词语本身也会影响概率</strong>
+            <p>数字 1 被放到第 4 位或第 5 位时，所在位置的概率都会明显升高；题目背景没有提到有哪些动物时，排在第 2 位的 dog 也得到 0.23 的概率，而数字题里排第 2 位的数字 2 只有 0.01。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>有唯一正确答案时，顺序影响很小</strong>
+            <p>让 Jev 根据 72 条不同的描述猜是哪种动物，交换选项顺序后有 71 条答案保持不变。线索清晰和中等的描述全部答对。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>主观偏好由“原有偏好”和“位置偏差”共同决定</strong>
+            <p>720 种排列中，Jev 有 599 次选择 dog；但当 cat 排在第一时，120 次全部改选 cat。其他动物排第一通常无法超过 dog。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>这种偏差可能进入实际应用</strong>
+            <p>在推荐、排序、路由或候选方案选择中，靠前选项和更讨喜的词语可能被高估。题目越缺少明确证据、选项越接近，风险越高。</p>
+          </div>
+        </li>
+      </ol>
+      <p>
+        因此，不能把 Jev 的选择结果当作随机数，也不能默认它在没有唯一答案时不受顺序影响。
+        公平抽样应在模型外完成；非确定性决策应轮换选项顺序、比较多种排列，并在真实数据上校准位置和措辞带来的偏差。
+      </p>
+    </section>
+
+    <section id="method">
+      <h2>方法</h2>
+      <p>
+        实验只研究单次掷骰。每次请求包含三部分：
+        题目背景写「掷了一次公平骰」，问题问哪一面朝上，选项给六个面完全对称的说明。
+      </p>
+      <p>
+        模型固定 <span class="mono">jev-1.13.0</span>。数字组选项为 1–6，动物组为
+        cat, dog, bird, fish, horse, cow。
+        <strong>“动物骰子”仍是一枚公平的六面骰子，只是把六个点数分别换成六种动物名称，每个面对应一种动物。</strong>
+        这样可以检验偏差来自数字本身，还是来自选项排在什么位置。
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>实验</th>
+            <th>问题</th>
+            <th>规模</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>数字骰子</td><td>哪一个点数朝上</td><td>3 种题目 × 2000</td></tr>
+          <tr><td>动物骰子</td><td>哪一种动物朝上</td><td>3 种题目 × 2000</td></tr>
+          <tr><td>再次打乱数字</td><td>哪一个点数朝上</td><td>1 种题目 × 2000</td></tr>
+          <tr><td>根据描述猜动物</td><td>这句话描述的是哪种动物</td><td>72 句 × 2 种顺序</td></tr>
+          <tr><td>选择最喜欢的动物</td><td>你最喜欢哪种动物</td><td>全部 720 种排列</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Jev 每次除了给出答案，还会给每个选项一个概率，所有选项的概率加起来为 1。掷骰图展示的是 2000 次相同请求中这些概率的平均值。</p>
+    </section>
+
+    <section id="prompts">
+      <h2>几种题目有什么不同</h2>
+      <p>问题本身不变。我们只改变题目有没有列出六个面，以及六个面的排列顺序。</p>
+      <h3>数字组 · 哪一面朝上？</h3>
+      <table>
+        <thead>
+          <tr><th></th><th>题目背景多了什么</th><th>选项顺序</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>基础题</td><td>只有「掷了一次公平骰」，不列出六个面</td><td>1, 2, 3, 4, 5, 6</td></tr>
+          <tr><td>自然顺序</td><td>列出 <span class="mono">[1, 2, 3, 4, 5, 6]</span></td><td>1, 2, 3, 4, 5, 6</td></tr>
+          <tr><td>打乱顺序</td><td>列出 <span class="mono">[4, 2, 6, 1, 5, 3]</span></td><td>4, 2, 6, 1, 5, 3</td></tr>
+          <tr><td>再次打乱</td><td>改成 <span class="mono">[5, 3, 2, 6, 1, 4]</span>，把 1 从第 4 位移到第 5 位</td><td>5, 3, 2, 6, 1, 4</td></tr>
+        </tbody>
+      </table>
+      <h3>动物骰子 · 哪一种动物朝上？</h3>
+      <table>
+        <thead>
+          <tr><th></th><th>题目背景多了什么</th><th>选项顺序</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>基础题</td><td>不列具体动物</td><td>cat, dog, bird, fish, horse, cow</td></tr>
+          <tr><td>自然顺序</td><td>列出六种动物</td><td>cat, dog, bird, fish, horse, cow</td></tr>
+          <tr><td>打乱顺序</td><td>按与数字实验相同的方式打乱</td><td>fish, dog, cow, cat, horse, bird</td></tr>
+        </tbody>
+      </table>
+      <p>为避免措辞不一致，六个选项都使用同一种句式，只替换点数或动物名称。</p>
+    </section>
+
+    <section id="by-key">
+      <h2>1. 数字骰子与动物骰子：按骰面内容看概率</h2>
+      <p>
+        第 1、2 节使用同一批数据，即数字骰子和动物骰子各 3 种题目、每种请求 2000 次，只是分别按骰面内容和按选项位置来看。
+      </p>
+      <p>
+        这张图比较每个点数或动物得到的平均概率。自然顺序下，数字 1 和 cat 得到最高概率；
+        打乱顺序为 <span class="mono">[4, 2, 6, 1, 5, 3]</span>，数字 4 排在第 1 位，数字 1 排在第 4 位。
+        最高概率转移到第一项 4，但数字 1 仍保留第二个明显的概率高点。
+      </p>
+      <p>
+        动物组采用对应顺序，fish 排在第 1 位、cat 排在第 4 位；此时只有 fish 明显突出。
+        另外，在基础题里，题目背景没有提到有哪些动物，选项仍按 cat、dog 开头排列。此时 cat 只得到 0.44，排第二的 dog 也得到 0.23，可能因为 dog 这个词更常见；同样条件下，数字题的第一项 1 得到 0.87，第二项 2 只有 0.01。红色柱表示每张小图中概率最高的选项。
+      </p>
+      <figure>
+        <img src="img/by-key.svg?v=4" alt="不同题目中各数字和动物得到的平均概率" />
+        <figcaption>图 1 · <strong>横轴表示骰面内容：</strong>上排是数字 1–6，下排是六种动物。每个骰面都固定画在自己的数字或动物名称下；虚线表示公平骰应有的 1/6。每种题目请求 2000 次。</figcaption>
+      </figure>
+      <p>
+        <strong>小结：</strong>公平骰的每一面都应得到 1/6，但无论骰面是数字还是动物，Jev 都把大部分概率给了同一个选项，而且这个选项会随顺序改变：谁排第一，谁得到的概率最高。
+        此外，数字 1 和 dog 这些词本身也会多得到一些概率。
+      </p>
+    </section>
+
+    <section id="by-pos">
+      <h2>2. 按选项位置看概率</h2>
+      <p>
+        横轴改成选项排在第几位之后，数字和动物的差别基本消失：所有曲线都在第 1 位达到最高，其余位置大多低于 1/6。
+        数字实验在第 4 位还有一个较小的概率高点，因为那里放着数字 1；
+        动物实验的同一位置是 cat，这里没有出现类似的高点，cat 的概率只有约 0.06。这说明第一项偏差最强，词语本身也有较小影响。
+      </p>
+      <figure>
+        <img src="img/by-position.svg?v=3" alt="数字组与动物组中每个选项位置得到的平均概率" />
+        <figcaption>图 2 · 每个位置得到的平均概率。点线表示 1/6。</figcaption>
+      </figure>
+      <p>
+        <strong>小结：</strong>按位置看，数字骰子和动物骰子的曲线形状几乎一样，说明决定结果的主要是选项排在第几位，而不是骰面上写的是什么。
+        第 4 位的差别（数字 1 有高点，cat 没有）来自词语本身，影响比第一项偏差小得多。
+      </p>
+    </section>
+
+    <section id="p3alt">
+      <h2>3. 把数字 1 挪走，概率高点会不会跟着移动</h2>
+      <p>
+        原来的打乱顺序是 <span class="mono">[4, 2, 6, 1, 5, 3]</span>，数字 1 在第 4 位。
+        新顺序改成 <span class="mono">[5, 3, 2, 6, 1, 4]</span>，数字 1 移到第 5 位，第一项则改成 5。
+        最终答案全是 5；原来排第一的 4 被移到最后，就不再被选中。
+      </p>
+      <p>
+        第二个概率高点也跟着数字 1 移动。同样看第 5 位：原顺序放的是数字 5，概率只有 0.04；新顺序放的是数字 1，概率升到 0.15，约为原来的 3.5 倍。
+        第 4 位则从数字 1 换成数字 6，概率从 0.22 降到 0.16。
+      </p>
+      <figure>
+        <img src="img/p3alt.svg?v=3" alt="两种打乱顺序下各位置的平均概率，并标出数字 1 所在位置" />
+        <figcaption>图 3 · 最高概率始终在第一项。数字 1 从第 4 位移到第 5 位后，第 5 位的概率明显上升，第 4 位随之下降。</figcaption>
+      </figure>
+      <p>
+        <strong>小结：</strong>挪动数字 1 之后，最高概率仍然跟着第一项走，第二个高点则跟着数字 1 走。
+        这说明位置偏差和词语偏差是两种不同来源的影响，而且会同时出现在同一道题里。
+      </p>
+    </section>
+
+    <section id="describe">
+      <h2>4. 根据描述猜动物（确定性决策）</h2>
+      <p>
+        前面的掷骰题没有正确答案；这一节换成有唯一正确答案的题，看位置偏差还会不会出现。
+        Jev 读一句英文描述，回答 <span class="mono">Which animal does this sentence describe?</span>（这句话描述的是哪种动物？），从同样的六种动物中选一个。
+      </p>
+      <p>
+        我们写了 72 条互不相同的描述，每种动物 12 句，句子里不直接出现动物名。按线索多少分为清晰、中等、模糊三档，每档 4 句，例如：
+      </p>
+      <ul>
+        <li>清晰（dog）：<em>This loyal pet barks at strangers and wags its tail when excited.</em>（会对陌生人叫、兴奋时摇尾巴）</li>
+        <li>中等（cat）：<em>A small agile pet silently climbs furniture and lands on its feet.</em>（悄悄爬家具、落地时脚先着地）</li>
+        <li>模糊（cow）：<em>A large farm animal grazes slowly in a green pasture.</em>（在草地上吃草的大型家畜，也可能是马）</li>
+      </ul>
+      <p>
+        每句话用两种选项顺序各测一次：自然顺序以 cat 开头，打乱顺序以 fish 开头，共 144 次。
+      </p>
+      <p>
+        清晰句和中等句在两种顺序下都全部答对，清晰句给正确动物的概率都是 100%。模糊句准确率在自然顺序下为 75%，打乱顺序下为 79%，错误主要来自 cat/dog、horse/cow 这类相近动物。
+      </p>
+      <p>
+        72 句里只有 1 句在换顺序后改变答案：<em>This soft-coated companion spends much of the afternoon asleep.</em>（毛很软、下午大部分时间在睡觉的伙伴），正确答案是 cat。
+        自然顺序下 cat 排第一，Jev 却答成 dog；打乱后 cat 排到第 4 位，Jev 反而答对了。它也没有改选新的第一项 fish。
+      </p>
+      <figure>
+        <img src="img/descriptions.svg?v=3" alt="按清晰度的准确率、正确项概率，以及换顺序后的概率变化" />
+        <figcaption>图 4 · 左图是准确率，中图是正确动物得到的平均概率。右图是换顺序后正确动物的概率变化，横轴下方的“1→4”表示该动物从自然顺序的第 1 位移到打乱后的第 4 位。右图纵轴最大只有约 0.03；fish 从第 4 位移到第 1 位，平均变化仍为 0。</figcaption>
+      </figure>
+      <p>
+        <strong>小结：</strong>题目有唯一正确答案、句子里又有足够线索时，Jev 会根据内容作答，选项顺序几乎不影响结果，掷骰题里那种“总选第一项”的现象没有出现。
+        线索模糊时 Jev 会出错，但错误主要是把相近的动物弄混，并没有偏向排在第一的选项。
+        这说明位置偏差主要出现在缺少判断依据的非确定性决策中。
+      </p>
+    </section>
+
+    <section id="favorite">
+      <h2>5. 让 Jev 选自己喜欢的动物</h2>
+      <p>
+        问题是 <span class="mono">Which animal do you like best?</span>（你最喜欢哪种动物？）。题目背景和答案选项采用相同的动物顺序，每个选项的说明都使用同一种句式。
+        6 种动物的 720 个排列各请求一次，因此每个动物在每个位置都出现 120 次。
+      </p>
+      <p>
+        dog 被选中 599 次，放在第 2 到第 6 位时仍在约 80% 的情况下胜出，平均概率始终高于 0.5。
+        cat 排在第一的 120 次则全部改选 cat；cat 不在第一时一次都没赢。bird、fish、cow 即使排第一也没有赢。horse 只赢过 1 次，当时 horse 的概率是 0.37，dog 是 0.35。
+      </p>
+      <figure>
+        <img src="img/favorite.svg?v=2" alt="每种动物在不同列表位置上的平均概率，以及 720 次最终选择的计数" />
+        <figcaption>图 5 · 偏好题中，排第一的动物不一定胜出。只有本身也很受偏爱的动物（cat）排第一时，才能压过 dog。</figcaption>
+      </figure>
+      <p>
+        <strong>小结：</strong>“最喜欢哪种动物”同样没有唯一答案，但 Jev 本身明显偏爱 dog，这时位置偏差不能单独决定结果：排第一的动物只有本身也受偏爱（如 cat）时才会胜出。
+        也就是说，Jev 的主观选择由原有偏好和位置加成共同决定；同一组选项只是换一种排列，答案就可能改变。
+      </p>
+    </section>
+
+  </main>
+  <footer>
+    <div class="wrap">
+      <strong>参考文献</strong><br />
+      [1] Qiang Liu. <em>Does GPT-4 Play Dice?</em>
+      <a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf">https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf</a>
+    </div>
+  </footer>
+</body>
+</html>

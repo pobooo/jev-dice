@@ -1,0 +1,41 @@
+{
+  "model": "jev-1.13.0",
+  "n_target": 2000,
+  "prompts": {
+    "P3alt": {
+      "ok": 2000,
+      "errors": 0,
+      "invalid": 0,
+      "freq": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 2000,
+        "6": 0
+      },
+      "probabilities_identical_across_ok_trials": false,
+      "cache_bust_records": 0
+    },
+    "P3altplus": {
+      "ok": 2000,
+      "errors": 0,
+      "invalid": 0,
+      "freq": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 2000,
+        "6": 0
+      },
+      "probabilities_identical_across_ok_trials": false,
+      "cache_bust_records": 0
+    }
+  },
+  "layout": "protocol",
+  "criteria_style": "describe",
+  "state_hash_chars": 0,
+  "labels": "numbers",
+  "hash_prefix": false
+}

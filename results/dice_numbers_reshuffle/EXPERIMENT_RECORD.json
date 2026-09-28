@@ -1,0 +1,103 @@
+{
+  "recorded_at": "2026-09-24T16:30:41+08:00",
+  "experiment": "jev_dice_protocol_describe_p3alt",
+  "dir": "dice_numbers_reshuffle",
+  "layout": "protocol",
+  "criteria_style": "describe",
+  "hash": false,
+  "order": [
+    "5",
+    "3",
+    "2",
+    "6",
+    "1",
+    "4"
+  ],
+  "hypothesis": "If the P3 bump follows key 1, it moves from criteria position 4 (old [4,2,6,1,5,3]) to position 5 (new [5,3,2,6,1,4]). First-item lock should move to 5.",
+  "prompts": {
+    "P3alt": {
+      "n": 2000,
+      "errors": 0,
+      "choice_freq": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 2000,
+        "6": 0
+      },
+      "mean_p": {
+        "1": 0.152395,
+        "2": 0.04903,
+        "3": 0.078185,
+        "4": 0.085085,
+        "5": 0.478375,
+        "6": 0.156905
+      },
+      "mean_conf": 0.37447,
+      "mean_p_by_position": {
+        "1": 0.478375,
+        "2": 0.078185,
+        "3": 0.04903,
+        "4": 0.156905,
+        "5": 0.152395,
+        "6": 0.085085
+      }
+    },
+    "P3altplus": {
+      "n": 2000,
+      "errors": 0,
+      "choice_freq": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 2000,
+        "6": 0
+      },
+      "mean_p": {
+        "1": 0.22603,
+        "2": 0.058865,
+        "3": 0.07753,
+        "4": 0.06553,
+        "5": 0.44954,
+        "6": 0.122505
+      },
+      "mean_conf": 0.34007,
+      "mean_p_by_position": {
+        "1": 0.44954,
+        "2": 0.07753,
+        "3": 0.058865,
+        "4": 0.122505,
+        "5": 0.22603,
+        "6": 0.06553
+      }
+    }
+  },
+  "request_examples": {
+    "P3alt": {
+      "state": "A fair six-sided die is rolled once. The faces are [5, 3, 2, 6, 1, 4].",
+      "instructions": "Which face landed up?",
+      "criteria": {
+        "5": "The die came to rest with the 5 face pointing up.",
+        "3": "The die came to rest with the 3 face pointing up.",
+        "2": "The die came to rest with the 2 face pointing up.",
+        "6": "The die came to rest with the 6 face pointing up.",
+        "1": "The die came to rest with the 1 face pointing up.",
+        "4": "The die came to rest with the 4 face pointing up."
+      }
+    },
+    "P3altplus": {
+      "state": "A fair six-sided die is rolled once. The faces are [5, 3, 2, 6, 1, 4]. Each face is equally likely.",
+      "instructions": "Which face landed up?",
+      "criteria": {
+        "5": "The die came to rest with the 5 face pointing up.",
+        "3": "The die came to rest with the 3 face pointing up.",
+        "2": "The die came to rest with the 2 face pointing up.",
+        "6": "The die came to rest with the 6 face pointing up.",
+        "1": "The die came to rest with the 1 face pointing up.",
+        "4": "The die came to rest with the 4 face pointing up."
+      }
+    }
+  }
+}
