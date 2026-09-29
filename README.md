@@ -1,4 +1,4 @@
-# Jev 掷骰子吗？ / Does Jev Play Dice?
+# Jev 抛硬币吗？ / Does Jev Flip Coins?
 
 **非确定性决策中的系统性偏差 · Systematic bias in non-deterministic decisions**
 

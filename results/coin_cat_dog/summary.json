@@ -1,0 +1,77 @@
+{
+  "model": "jev-1.13.0",
+  "state": "A fair coin is flipped once. One side shows a cat, the other side shows a dog.",
+  "conditions": {
+    "choice_dog_first": {
+      "type": "choice",
+      "order": [
+        "dog",
+        "cat"
+      ],
+      "ok": 200,
+      "errors": 0,
+      "mean_p": {
+        "dog": 0.1111,
+        "cat": 0.8889
+      },
+      "min_p": {
+        "dog": 0.09,
+        "cat": 0.86
+      },
+      "max_p": {
+        "dog": 0.14,
+        "cat": 0.91
+      },
+      "picks": {
+        "dog": 0,
+        "cat": 200
+      }
+    },
+    "choice_cat_first": {
+      "type": "choice",
+      "order": [
+        "cat",
+        "dog"
+      ],
+      "ok": 200,
+      "errors": 0,
+      "mean_p": {
+        "dog": 0.0941,
+        "cat": 0.9059
+      },
+      "min_p": {
+        "dog": 0.08,
+        "cat": 0.88
+      },
+      "max_p": {
+        "dog": 0.12,
+        "cat": 0.92
+      },
+      "picks": {
+        "dog": 0,
+        "cat": 200
+      }
+    },
+    "noul": {
+      "type": "noul",
+      "order": [
+        "dog",
+        "cat"
+      ],
+      "ok": 200,
+      "errors": 0,
+      "mean_p": {
+        "dog": 0.4159,
+        "cat": 0.4288
+      },
+      "min_p": {
+        "dog": 0.39,
+        "cat": 0.41
+      },
+      "max_p": {
+        "dog": 0.44,
+        "cat": 0.46
+      }
+    }
+  }
+}

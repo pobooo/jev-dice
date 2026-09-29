@@ -1,0 +1,117 @@
+{
+  "model": "jev-1.13.0",
+  "labels": "animals",
+  "prompts": {
+    "P1": {
+      "ok": 200,
+      "errors": 0,
+      "order": [
+        "cat",
+        "dog",
+        "bird",
+        "fish",
+        "horse",
+        "cow"
+      ],
+      "mean_noul": {
+        "cat": 0.2164,
+        "dog": 0.2124,
+        "bird": 0.2186,
+        "fish": 0.2073,
+        "horse": 0.1823,
+        "cow": 0.1666
+      },
+      "min_noul": {
+        "cat": 0.2,
+        "dog": 0.2,
+        "bird": 0.2,
+        "fish": 0.19,
+        "horse": 0.16,
+        "cow": 0.14
+      },
+      "max_noul": {
+        "cat": 0.23,
+        "dog": 0.22,
+        "bird": 0.23,
+        "fish": 0.22,
+        "horse": 0.2,
+        "cow": 0.19
+      },
+      "sum_of_means": 1.2036
+    },
+    "P3": {
+      "ok": 200,
+      "errors": 0,
+      "order": [
+        "fish",
+        "dog",
+        "cow",
+        "cat",
+        "horse",
+        "bird"
+      ],
+      "mean_noul": {
+        "cat": 0.1761,
+        "dog": 0.1634,
+        "bird": 0.1762,
+        "fish": 0.1782,
+        "horse": 0.1639,
+        "cow": 0.1613
+      },
+      "min_noul": {
+        "cat": 0.16,
+        "dog": 0.15,
+        "bird": 0.16,
+        "fish": 0.17,
+        "horse": 0.14,
+        "cow": 0.14
+      },
+      "max_noul": {
+        "cat": 0.19,
+        "dog": 0.18,
+        "bird": 0.19,
+        "fish": 0.19,
+        "horse": 0.18,
+        "cow": 0.18
+      },
+      "sum_of_means": 1.0191
+    },
+    "P3alt": {
+      "ok": 200,
+      "errors": 0,
+      "order": [
+        "horse",
+        "bird",
+        "dog",
+        "cow",
+        "cat",
+        "fish"
+      ],
+      "mean_noul": {
+        "cat": 0.1742,
+        "dog": 0.1834,
+        "bird": 0.1737,
+        "fish": 0.1866,
+        "horse": 0.1619,
+        "cow": 0.1629
+      },
+      "min_noul": {
+        "cat": 0.16,
+        "dog": 0.17,
+        "bird": 0.16,
+        "fish": 0.17,
+        "horse": 0.14,
+        "cow": 0.14
+      },
+      "max_noul": {
+        "cat": 0.19,
+        "dog": 0.2,
+        "bird": 0.19,
+        "fish": 0.2,
+        "horse": 0.18,
+        "cow": 0.18
+      },
+      "sum_of_means": 1.0427
+    }
+  }
+}

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Does Jev Play Dice?</title>
+  <title>Does Jev Flip Coins?</title>
   <style>
     :root {
       --ink: #1a1916;
@@ -200,7 +200,7 @@
 <body>
   <header class="hero">
     <div class="wrap">
-      <h1>Does Jev Play Dice?</h1>
+      <h1>Does Jev Flip Coins?</h1>
       <p class="subtitle">Systematic bias in non-deterministic decisions</p>
       <p class="byline">By Qiang Liu (<a href="https://qiangliu.net">qiangliu.net</a>) · September 28, 2026 · Experiments and writing assisted by AI · <a href="zh/">中文版</a></p>
     </div>
@@ -215,6 +215,7 @@
       <a href="#p3alt">Reordering</a>
       <a href="#describe">Guess the animal</a>
       <a href="#favorite">Favorite animal</a>
+      <a href="#noul">Noul calibration</a>
     </div>
   </nav>
   <main class="wrap">
@@ -226,7 +227,7 @@
       <p>
         We previously studied GPT-4’s ability to generate random numbers (<a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf"><em>Does GPT-4 Play Dice?</em></a> [1]). This time we apply a similar approach to Jev.
         Jev is a decision model from TypeSafe [2]. Instead of generating text, it takes a context and a set of options and returns the selected option along with a probability for each option.
-        We ran five experiments with <span class="mono">jev-1.13.0</span>.
+        We ran six experiments with <span class="mono">jev-1.13.0</span>.
         When all six outcomes should be equally likely, Jev does not produce anything close to a uniform choice or probability distribution. Instead, it clearly favors the option listed first.
         Beyond position, the words themselves matter too: the number 1 and dog receive more probability than the other options.
       </p>
@@ -241,13 +242,14 @@
         “Non-deterministic” describes the task, not how the model produces output: Jev does not sample an answer at random. It assigns each option a probability and picks the one with the highest probability.
       </p>
       <h3>What we did</h3>
-      <p>The study has five steps:</p>
+      <p>The study has six steps:</p>
       <ol>
         <li><strong>Number die:</strong> Ask Jev for the outcome of a roll among six equally likely faces (Sections 1 and 2).</li>
         <li><strong>Animal die:</strong> Replace the numbers with six animals to see whether the bias persists (Sections 1 and 2).</li>
         <li><strong>Moving the number 1:</strong> Change where the number 1 appears, to separate the effect of position from the effect of the word (Section 3).</li>
         <li><strong>Guess the animal:</strong> Have Jev read 72 different animal descriptions and name the animal. These questions have a single correct answer, making them deterministic decisions. They test whether the bias from option order also affects this kind of judgment (Section 4).</li>
         <li><strong>Favorite animal:</strong> Try all 720 orderings of the six animals to see how subjective preference and option order jointly shape the result (Section 5).</li>
+        <li><strong>Noul calibration:</strong> The first five steps all have Jev pick one option from a set (Choice). This step instead asks a separate yes/no question for each face (Noul), to test whether Jev’s probability estimates are accurate for fair dice with 2 to 20 faces (Section 6).</li>
       </ol>
       <h3>Main findings</h3>
       <ol class="findings">
@@ -279,6 +281,12 @@
           <div>
             <strong>Subjective choice reflects both existing preference and position bias</strong>
             <p>Across 720 orderings, Jev chose dog 599 times; but whenever cat was listed first, it chose cat all 120 times. Other animals listed first usually could not beat dog.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>With separate yes/no judgments, probability no longer piles onto one option, but it is still inaccurate</strong>
+            <p>When Noul judges each face of a fair die separately, the faces of the same die get similar probabilities. But each face of a 2-sided die gets only 0.43 (should be 0.5), and each face of a 20-sided die gets 0.095 (should be 0.05): large probabilities are underestimated and small ones overestimated.</p>
           </div>
         </li>
         <li>
@@ -320,9 +328,10 @@
           <tr><td>Number die, reshuffled</td><td>Which face landed up?</td><td>1 prompt × 2,000</td></tr>
           <tr><td>Guess the animal from a description</td><td>Which animal does this sentence describe?</td><td>72 sentences × 2 orders</td></tr>
           <tr><td>Pick a favorite animal</td><td>Which animal do you like best?</td><td>All 720 orderings</td></tr>
+          <tr><td>Noul calibration</td><td>Did the die land on this face? (one question per face)</td><td>8 dice × 100</td></tr>
         </tbody>
       </table>
-      <p class="note">Besides an answer, Jev returns a probability for each option, and the probabilities sum to 1. The dice charts show the average of these probabilities over 2,000 identical requests.</p>
+      <p class="note">The first five experiments use Choice questions. Besides an answer, Jev returns a probability for each option, and the probabilities sum to 1. The dice charts show the average of these probabilities over 2,000 identical requests.</p>
     </section>
 
     <section id="prompts">
@@ -471,6 +480,35 @@
       </p>
     </section>
 
+    <section id="noul">
+      <h2>6. A different question type: judging each face with Noul</h2>
+      <p>
+        TypeSafe offers several question types, set by the <span class="mono">type</span> field of the request [3]. The first five sections all use <strong>Choice</strong>: every option goes into a single question, Jev picks one, and it gives each option a probability, with all probabilities summing to 1.
+        Because the options share one budget of probability, whatever one option gains the others must lose; the position and wording effects seen earlier all arise in this comparison.
+      </p>
+      <p>
+        <strong>Noul</strong> is a yes/no question: each question judges whether a single condition holds, and Jev returns only the probability of “yes,” without choosing anything.
+        One request can contain several Noul questions. Each is judged independently and cannot see the others’ answers, so their probabilities need not sum to 1.
+        To ask about a die with Noul, each face gets its own question, such as <span class="mono">Did the die land on 3?</span>, so the options no longer compete with one another.
+      </p>
+      <p>
+        This section uses Noul to test whether Jev estimates the probability of equally likely events accurately. The context reads “a fair N-sided die with faces numbered 1 to N is rolled once,” with N = 2, 3, 4, 6, 8, 10, 12, and 20. Each face is asked separately, and each die is requested 100 times.
+        For a fair die, every face should have probability 1/N, and all faces together should sum to 1.
+      </p>
+      <figure>
+        <img src="img/noul-calibration.svg?v=1" alt="True probability of each face of a fair N-sided die versus Jev’s Noul estimate, and the sum over all faces" />
+        <figcaption>Figure 6 · Left: the gray dashed line is the true probability 1/N; the red line is the average probability Jev gives each face, and the error bars span the lowest to highest face average on the same die. Right: the sum of probabilities over all faces of each die; blue is below 1, red is above 1.</figcaption>
+      </figure>
+      <p>
+        On any one die, the faces get similar probabilities. On the 6-sided die, for example, every face falls between 0.17 and 0.19; nothing like Choice’s habit of giving most of the probability to one option appears.
+        But the size of the probability is off. The 6- and 8-sided dice come closest to the true value. With few faces, each face is underestimated: the true value for a 2-sided die is 0.5, and Jev gives 0.43. With many faces, each face is overestimated: the true value for a 20-sided die is 0.05, and Jev gives 0.095, nearly double, so all faces together sum to 1.90.
+      </p>
+      <p>
+        <strong>Summary:</strong> With separate Noul judgments, probability no longer piles onto one option, but the estimates are pulled toward the middle: true probabilities of 0.25 and above are underestimated by 13%–17%, and those of 0.1 and below are overestimated by 26%–90%, more so the smaller the probability.
+        So Noul outputs cannot be used directly as true probabilities either; they need to be calibrated on real data first. Noul also does not “roll” a result for us, so fair sampling still has to happen outside the model.
+      </p>
+    </section>
+
   </main>
   <footer>
     <div class="wrap">
@@ -478,7 +516,10 @@
       [1] Qiang Liu. <em>Does GPT-4 Play Dice?</em>
       <a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf">https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf</a><br />
       [2] TypeSafe. <em>Introduction to Jev</em>. TypeSafe documentation.
-      <a href="https://docs.typesafe.ai/introduction">https://docs.typesafe.ai/introduction</a>
+      <a href="https://docs.typesafe.ai/introduction">https://docs.typesafe.ai/introduction</a><br />
+      [3] TypeSafe. <em>Choice</em>; <em>Noul</em>. TypeSafe documentation.
+      <a href="https://docs.typesafe.ai/primitives/choice">https://docs.typesafe.ai/primitives/choice</a>;
+      <a href="https://docs.typesafe.ai/primitives/noul">https://docs.typesafe.ai/primitives/noul</a>
     </div>
   </footer>
 </body>

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the five Chinese charts used by the HTML report."""
+"""Generate the Chinese charts used by the HTML report (pass chart names to build a subset)."""
 
 from __future__ import annotations
 
@@ -232,9 +232,54 @@ def favorite() -> None:
     save(fig, "favorite.svg")
 
 
+def noul_calibration() -> None:
+    path = ROOT / "results" / "noul_calibration" / "summary.json"
+    dice = list(json.loads(path.read_text())["dice"].values())
+    x = np.arange(len(dice))
+    labels = [str(d["n_sides"]) for d in dice]
+    mean = np.array([d["mean_noul"] for d in dice])
+    err = [mean - [d["min_face_mean"] for d in dice], [d["max_face_mean"] for d in dice] - mean]
+
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.2))
+    ax = axes[0]
+    ax.plot(x, [d["true_p"] for d in dice], "--o", color="#888", ms=4, label="真实概率 1/N")
+    ax.errorbar(x, mean, yerr=err, fmt="-o", color="#991f1f", capsize=3, lw=1.8, label="Jev 给出的平均概率")
+    ax.set_xticks(x, labels)
+    ax.set_ylim(0, 0.55)
+    ax.set_xlabel("骰子面数 N")
+    ax.set_ylabel("每一面的概率")
+    ax.set_title("真实概率与 Jev 的估计")
+    ax.legend(frameon=False, fontsize=8)
+
+    ax = axes[1]
+    sums = [d["sum_of_means"] for d in dice]
+    ax.bar(x, sums, width=0.66, color=["#2c648a" if s < 1 else "#991f1f" for s in sums])
+    ax.axhline(1, color="#555", ls="--", lw=1)
+    for i, s in enumerate(sums):
+        ax.text(i, s + 0.03, f"{s:.2f}", ha="center", fontsize=8)
+    ax.set_xticks(x, labels)
+    ax.set_ylim(0, 2.1)
+    ax.set_xlabel("骰子面数 N")
+    ax.set_ylabel("各面概率之和")
+    ax.set_title("各面概率加起来（公平时应为 1）")
+
+    fig.suptitle("Noul 校准：公平 N 面骰每一面朝上的概率（每种骰子 100 次）", fontsize=12)
+    fig.tight_layout()
+    save(fig, "noul-calibration.svg")
+
+
+CHARTS = {
+    "by-key": by_content,
+    "by-position": by_position,
+    "p3alt": moved_one,
+    "descriptions": descriptions,
+    "favorite": favorite,
+    "noul-calibration": noul_calibration,
+}
+
+
 if __name__ == "__main__":
-    by_content()
-    by_position()
-    moved_one()
-    descriptions()
-    favorite()
+    import sys
+
+    for name in sys.argv[1:] or CHARTS:
+        CHARTS[name]()

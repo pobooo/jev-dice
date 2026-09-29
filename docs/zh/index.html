@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jev 掷骰子吗？</title>
+  <title>Jev 抛硬币吗？</title>
   <style>
     :root {
       --ink: #1a1916;
@@ -200,7 +200,7 @@
 <body>
   <header class="hero">
     <div class="wrap">
-      <h1>Jev 掷骰子吗？</h1>
+      <h1>Jev 抛硬币吗？</h1>
       <p class="subtitle">非确定性决策中的系统性偏差</p>
       <p class="byline">作者：Qiang Liu（<a href="https://qiangliu.net">qiangliu.net</a>）· 2026 年 9 月 28 日 · 实验与报告撰写由 AI 辅助完成 · <a href="../">English</a></p>
     </div>
@@ -215,6 +215,7 @@
       <a href="#p3alt">再次换序</a>
       <a href="#describe">猜动物</a>
       <a href="#favorite">动物偏好</a>
+      <a href="#noul">Noul 校准</a>
     </div>
   </nav>
   <main class="wrap">
@@ -226,7 +227,7 @@
       <p>
         我们之前研究过 GPT-4 生成随机数的能力（<a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf"><em>Does GPT-4 Play Dice?</em></a> [1]），这次沿用类似的思路测试 Jev。
         Jev 是 TypeSafe 推出的决策模型 [2]：它不生成文字，而是根据给定的题目背景和一组选项，返回选中的选项以及每个选项的概率。
-        我们用 <span class="mono">jev-1.13.0</span> 做了五组实验。
+        我们用 <span class="mono">jev-1.13.0</span> 做了六组实验。
         当六个结果本应等可能时，Jev 没有生成接近均匀的选择或概率分布，而是明显偏向排在第一的选项。
         除了位置，词语本身也有影响：数字 1 和 dog 会比其他选项获得更多概率。
       </p>
@@ -241,13 +242,14 @@
         “非确定性”描述的是任务，不是模型的输出方式：Jev 不会随机抽取答案，而是给每个选项一个概率，并选择概率最高的一项。
       </p>
       <h3>我们做了什么</h3>
-      <p>实验分为五步：</p>
+      <p>实验分为六步：</p>
       <ol>
         <li><strong>数字骰子：</strong>让 Jev 在六个等可能的点数中选择结果（第 1、2 节）。</li>
         <li><strong>动物骰子：</strong>把点数换成六种动物，观察偏差是否仍然存在（第 1、2 节）。</li>
         <li><strong>挪动数字 1：</strong>改变数字 1 的位置，区分位置影响和词语影响（第 3 节）。</li>
         <li><strong>猜动物：</strong>让 Jev 读 72 条不同的动物描述并猜出是哪种动物。这类题有唯一正确答案，属于确定性决策，用来检验选项顺序带来的偏差是否也会影响这类任务的判断（第 4 节）。</li>
         <li><strong>动物偏好：</strong>遍历六种动物的全部 720 种排列，观察主观偏好与选项顺序如何共同影响结果（第 5 节）。</li>
+        <li><strong>Noul 校准：</strong>前五步都让 Jev 从一组选项中选一个（Choice）；这一步改成对每一面单独问是非题（Noul），检验它对 2 到 20 面公平骰的概率估计是否准确（第 6 节）。</li>
       </ol>
       <h3>主要结果</h3>
       <ol class="findings">
@@ -279,6 +281,12 @@
           <div>
             <strong>主观偏好由“原有偏好”和“位置偏差”共同决定</strong>
             <p>720 种排列中，Jev 有 599 次选择 dog；但当 cat 排在第一时，120 次全部改选 cat。其他动物排第一通常无法超过 dog。</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <strong>换成逐项是非判断，概率不再集中到一项，但仍不准确</strong>
+            <p>用 Noul 分别判断公平骰的每一面时，同一个骰子各面的概率很接近；但 2 面骰每面只给 0.43（应为 0.5），20 面骰每面给 0.095（应为 0.05）：大概率被低估，小概率被高估。</p>
           </div>
         </li>
         <li>
@@ -320,9 +328,10 @@
           <tr><td>再次打乱数字</td><td>哪一个点数朝上</td><td>1 种题目 × 2000</td></tr>
           <tr><td>根据描述猜动物</td><td>这句话描述的是哪种动物</td><td>72 句 × 2 种顺序</td></tr>
           <tr><td>选择最喜欢的动物</td><td>你最喜欢哪种动物</td><td>全部 720 种排列</td></tr>
+          <tr><td>Noul 校准</td><td>掷出的是不是某一面（每面单独问）</td><td>8 种骰子 × 100</td></tr>
         </tbody>
       </table>
-      <p class="note">Jev 每次除了给出答案，还会给每个选项一个概率，所有选项的概率加起来为 1。掷骰图展示的是 2000 次相同请求中这些概率的平均值。</p>
+      <p class="note">前五组实验使用 Choice 问法：Jev 每次除了给出答案，还会给每个选项一个概率，所有选项的概率加起来为 1。掷骰图展示的是 2000 次相同请求中这些概率的平均值。</p>
     </section>
 
     <section id="prompts">
@@ -471,6 +480,35 @@
       </p>
     </section>
 
+    <section id="noul">
+      <h2>6. 换一种问法：用 Noul 逐项判断</h2>
+      <p>
+        TypeSafe 的问题分几种类型，由请求中的 <span class="mono">type</span> 字段指定 [3]。前五节用的都是 <strong>Choice</strong>：把所有选项放进同一个问题，Jev 选出一项，并给每个选项一个概率，所有概率加起来为 1。
+        因为选项在同一个问题里分一份概率，一个选项多拿，其他选项就要少拿；前面看到的位置和词语影响，都出现在这种比较之中。
+      </p>
+      <p>
+        <strong>Noul</strong> 是是非题：一个问题只判断一个条件是否成立，Jev 只返回“是”的概率，不做选择。
+        同一次请求里可以问多个 Noul，它们各自独立判断，看不到彼此的答案，所以各题的概率加起来不一定等于 1。
+        用 Noul 问骰子时，每一面单独问一题，例如 <span class="mono">Did the die land on 3?</span>（掷出的是 3 吗？），选项之间不再互相竞争。
+      </p>
+      <p>
+        这一节用 Noul 检验 Jev 对等可能事件的概率估计是否准确。题目背景写「一个公平的 N 面骰，各面编号 1 到 N，掷一次」，N 取 2、3、4、6、8、10、12、20，每一面单独问一题，每种骰子请求 100 次。
+        公平时，每一面的概率应为 1/N，所有面加起来应为 1。
+      </p>
+      <figure>
+        <img src="img/noul-calibration.svg?v=1" alt="公平 N 面骰每一面的真实概率与 Jev 的 Noul 估计，以及各面概率之和" />
+        <figcaption>图 6 · 左图：灰色虚线是真实概率 1/N，红线是 Jev 对每一面给出的平均概率，误差线表示同一个骰子上各面平均值的最低到最高。右图：同一个骰子所有面的概率之和，蓝色低于 1，红色高于 1。</figcaption>
+      </figure>
+      <p>
+        同一个骰子上，各面的概率很接近，例如 6 面骰每面都在 0.17 到 0.19 之间，没有出现 Choice 里那种把大部分概率给一项的情况。
+        但概率的大小并不准确：6 面和 8 面骰最接近真实值；面数少时每面概率被低估，2 面骰真实为 0.5，Jev 给出 0.43；面数多时被高估，20 面骰真实为 0.05，Jev 给出 0.095，接近两倍，所有面加起来达到 1.90。
+      </p>
+      <p>
+        <strong>小结：</strong>换成 Noul 逐项判断后，概率不再集中到某一项，但估计值会向中间靠拢：真实概率在 0.25 及以上时被低估 13%–17%，在 0.1 及以下时被高估 26%–90%，而且概率越小，高估越多。
+        因此 Noul 的输出也不能直接当作真实概率使用，需要先在真实数据上校准。Noul 也不会替我们“掷”出结果，公平抽样仍需在模型外完成。
+      </p>
+    </section>
+
   </main>
   <footer>
     <div class="wrap">
@@ -478,7 +516,10 @@
       [1] Qiang Liu. <em>Does GPT-4 Play Dice?</em>
       <a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf">https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf</a><br />
       [2] TypeSafe. <em>Introduction to Jev</em>. TypeSafe documentation.
-      <a href="https://docs.typesafe.ai/introduction">https://docs.typesafe.ai/introduction</a>
+      <a href="https://docs.typesafe.ai/introduction">https://docs.typesafe.ai/introduction</a><br />
+      [3] TypeSafe. <em>Choice</em>; <em>Noul</em>. TypeSafe documentation.
+      <a href="https://docs.typesafe.ai/primitives/choice">https://docs.typesafe.ai/primitives/choice</a>;
+      <a href="https://docs.typesafe.ai/primitives/noul">https://docs.typesafe.ai/primitives/noul</a>
     </div>
   </footer>
 </body>

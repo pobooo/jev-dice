@@ -1,0 +1,77 @@
+{
+  "model": "jev-1.13.0",
+  "state": "A fair coin is flipped once.",
+  "conditions": {
+    "choice_heads_first": {
+      "type": "choice",
+      "order": [
+        "heads",
+        "tails"
+      ],
+      "ok": 200,
+      "errors": 0,
+      "mean_p": {
+        "heads": 0.9213,
+        "tails": 0.0787
+      },
+      "min_p": {
+        "heads": 0.9,
+        "tails": 0.06
+      },
+      "max_p": {
+        "heads": 0.94,
+        "tails": 0.1
+      },
+      "picks": {
+        "heads": 200,
+        "tails": 0
+      }
+    },
+    "choice_tails_first": {
+      "type": "choice",
+      "order": [
+        "tails",
+        "heads"
+      ],
+      "ok": 200,
+      "errors": 0,
+      "mean_p": {
+        "heads": 0.9115,
+        "tails": 0.0885
+      },
+      "min_p": {
+        "heads": 0.89,
+        "tails": 0.07
+      },
+      "max_p": {
+        "heads": 0.93,
+        "tails": 0.11
+      },
+      "picks": {
+        "heads": 200,
+        "tails": 0
+      }
+    },
+    "noul": {
+      "type": "noul",
+      "order": [
+        "heads",
+        "tails"
+      ],
+      "ok": 200,
+      "errors": 0,
+      "mean_p": {
+        "heads": 0.4551,
+        "tails": 0.4106
+      },
+      "min_p": {
+        "heads": 0.44,
+        "tails": 0.4
+      },
+      "max_p": {
+        "heads": 0.47,
+        "tails": 0.42
+      }
+    }
+  }
+}

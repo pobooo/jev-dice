@@ -40,6 +40,14 @@ LABELS = {
     "动物在列表中的位置": "Position in the list",
     "全部排列下的最终选择": "Final choices across all orderings",
     "720 次中被选次数": "Times chosen (of 720)",
+    "Noul 校准：公平 N 面骰每一面朝上的概率（每种骰子 100 次）": "Noul calibration: probability of each face on a fair N-sided die (100 requests per die)",
+    "真实概率 1/N": "True probability 1/N",
+    "Jev 给出的平均概率": "Jev’s mean probability",
+    "骰子面数 N": "Number of faces N",
+    "每一面的概率": "Probability per face",
+    "真实概率与 Jev 的估计": "True probability vs. Jev’s estimate",
+    "各面概率之和": "Sum over faces",
+    "各面概率加起来（公平时应为 1）": "Sum over all faces (should be 1)",
 }
 
 TEXT = re.compile(r"(<text\b[^>]*>)([^<]+)(</text>)")

@@ -1,0 +1,77 @@
+{
+  "model": "jev-1.13.0",
+  "state": "A fair coin is flipped once. One side is tails, the other side is heads.",
+  "conditions": {
+    "choice_heads_first": {
+      "type": "choice",
+      "order": [
+        "heads",
+        "tails"
+      ],
+      "ok": 200,
+      "errors": 0,
+      "mean_p": {
+        "heads": 0.718,
+        "tails": 0.2819
+      },
+      "min_p": {
+        "heads": 0.67,
+        "tails": 0.23
+      },
+      "max_p": {
+        "heads": 0.77,
+        "tails": 0.33
+      },
+      "picks": {
+        "heads": 200,
+        "tails": 0
+      }
+    },
+    "choice_tails_first": {
+      "type": "choice",
+      "order": [
+        "tails",
+        "heads"
+      ],
+      "ok": 200,
+      "errors": 0,
+      "mean_p": {
+        "heads": 0.6782,
+        "tails": 0.3218
+      },
+      "min_p": {
+        "heads": 0.63,
+        "tails": 0.29
+      },
+      "max_p": {
+        "heads": 0.71,
+        "tails": 0.37
+      },
+      "picks": {
+        "heads": 200,
+        "tails": 0
+      }
+    },
+    "noul": {
+      "type": "noul",
+      "order": [
+        "heads",
+        "tails"
+      ],
+      "ok": 200,
+      "errors": 0,
+      "mean_p": {
+        "heads": 0.436,
+        "tails": 0.3734
+      },
+      "min_p": {
+        "heads": 0.42,
+        "tails": 0.36
+      },
+      "max_p": {
+        "heads": 0.45,
+        "tails": 0.41
+      }
+    }
+  }
+}
