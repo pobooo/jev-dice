@@ -9,13 +9,13 @@
 
 ## 简介
 
-我们之前研究过 GPT-4 生成随机数的能力（[*Does GPT-4 Play Dice?*](https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf)），这次用类似的思路测试 TypeSafe 的 Jev 模型（`jev-1.13.0`）。
+我们之前研究过 GPT-4 生成随机数的能力（[*Does GPT-4 Play Dice?*](https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf)），这次用类似的思路测试 TypeSafe 的 [Jev 模型](https://docs.typesafe.ai/introduction)（`jev-1.13.0`）。
 
 结论：Jev 不能公平地掷骰子。在没有唯一正确答案的选择中，它的输出会受到选项位置和词语本身的影响，产生系统性偏差：同一道题请求 2000 次，每次都选排在第一的选项。在有唯一正确答案的任务里（根据描述猜动物），选项顺序几乎不影响结果。
 
 ## Summary
 
-We previously studied GPT-4’s ability to generate random numbers ([*Does GPT-4 Play Dice?*](https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf)). This project applies a similar approach to TypeSafe’s Jev model (`jev-1.13.0`).
+We previously studied GPT-4’s ability to generate random numbers ([*Does GPT-4 Play Dice?*](https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf)). This project applies a similar approach to TypeSafe’s [Jev model](https://docs.typesafe.ai/introduction) (`jev-1.13.0`).
 
 Finding: Jev cannot roll a fair die. When a choice has no single correct answer, its output is influenced by option position and by the words themselves: across 2,000 identical requests it picks the first-listed option every time. On a task with a single correct answer (guessing an animal from a description), option order barely matters.
 

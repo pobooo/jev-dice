@@ -225,6 +225,7 @@
       </p>
       <p>
         We previously studied GPT-4’s ability to generate random numbers (<a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf"><em>Does GPT-4 Play Dice?</em></a> [1]). This time we apply a similar approach to Jev.
+        Jev is a decision model from TypeSafe [2]. Instead of generating text, it takes a context and a set of options and returns the selected option along with a probability for each option.
         We ran five experiments with <span class="mono">jev-1.13.0</span>.
         When all six outcomes should be equally likely, Jev does not produce anything close to a uniform choice or probability distribution. Instead, it clearly favors the option listed first.
         Beyond position, the words themselves matter too: the number 1 and dog receive more probability than the other options.
@@ -475,7 +476,9 @@
     <div class="wrap">
       <strong>References</strong><br />
       [1] Qiang Liu. <em>Does GPT-4 Play Dice?</em>
-      <a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf">https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf</a>
+      <a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf">https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf</a><br />
+      [2] TypeSafe. <em>Introduction to Jev</em>. TypeSafe documentation.
+      <a href="https://docs.typesafe.ai/introduction">https://docs.typesafe.ai/introduction</a>
     </div>
   </footer>
 </body>
