@@ -509,6 +509,7 @@
       </p>
       <p>
         <strong>小结：</strong>换成 Noul 逐项判断后，概率不再集中到某一项，但估计值会向中间靠拢：真实概率在 0.25 及以上时被低估 13%–17%，在 0.1 及以下时被高估 26%–90%，而且概率越小，高估越多。
+        这种形状与人对概率的判断相似：前景理论发现，人也会高估小概率、低估中高概率 [5]。这里只是类比，并不说明 Jev 产生这种偏差的原因。
         因此 Noul 的输出也不能直接当作真实概率使用，需要先在真实数据上校准。Noul 也不会替我们“掷”出结果，公平抽样仍需在模型外完成。
       </p>
     </section>
@@ -525,16 +526,13 @@
         <a href="https://docs.typesafe.ai/primitives/choice">https://docs.typesafe.ai/primitives/choice</a>;
         <a href="https://docs.typesafe.ai/primitives/noul">https://docs.typesafe.ai/primitives/noul</a><br />
         [4] Kanta Hayashi. <em>Jev Does Not Play Dice</em>. 2026 年 9 月 20 日。
-        <a href="https://kantahayashiai.github.io/posts/jev-does-not-play-dice/">https://kantahayashiai.github.io/posts/jev-does-not-play-dice/</a>
+        <a href="https://kantahayashiai.github.io/posts/jev-does-not-play-dice/">https://kantahayashiai.github.io/posts/jev-does-not-play-dice/</a><br />
+        [5] A. Tversky, D. Kahneman. <em>Advances in Prospect Theory: Cumulative Representation of Uncertainty</em>. Journal of Risk and Uncertainty, 5(4): 297–323, 1992.
+        <a href="https://doi.org/10.1007/BF00122574">https://doi.org/10.1007/BF00122574</a>
       </p>
       <p class="note">以下资料与本文的实验相关，按主题整理，供进一步阅读。</p>
       <h3>针对 Jev 的测试与讨论</h3>
       <ul>
-        <li>
-          Kanta Hayashi. <a href="https://kantahayashiai.github.io/posts/jev-does-not-play-dice/"><em>Jev Does Not Play Dice</em></a>. 2026 年 9 月 20 日。
-          用 Choice 问公平骰子 400 次，Jev 每次都选 1，平均概率 0.83；抛硬币的概率为 0.92。改用 Noul 后，六面骰每面约 0.19，但 20 个选项时平均 0.15（真实 0.05）。
-          他还发现，文档中写明的 30% 缺货风险经 Choice 读出后只剩约 5%。
-        </li>
         <li>
           TypeSafe. <a href="https://docs.typesafe.ai/model-jaggedness/jev-1.13"><em>Jev 1.13 jaggedness</em></a>. TypeSafe documentation.
           官方列出的已知缺陷。其中指出，同一问题用 Noul 和 Choice 问得到的数值不能直接比较；一个问题和它的否定用两个 Noul 问，概率加起来可以是 1.19，不应期望不同问题之间满足算术关系。
@@ -565,10 +563,6 @@
         <li>
           P. Pezeshkpour, E. Hruschka. <a href="https://arxiv.org/abs/2308.11483"><em>Large Language Models Sensitivity to The Order of Options in Multiple-Choice Questions</em></a>. 2023.
           仅重排选项，准确率差距可达 13%–75%；模型在前两三个选项之间犹豫时最容易受位置影响。
-        </li>
-        <li>
-          A. Tversky, D. Kahneman. <em>Advances in Prospect Theory: Cumulative Representation of Uncertainty</em>. Journal of Risk and Uncertainty, 1992.
-          人会高估小概率、低估中高概率，与第 6 节的曲线形状相似。这里只作类比，不说明 Jev 的原因。
         </li>
       </ul>
     </section>

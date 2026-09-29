@@ -509,6 +509,7 @@
       </p>
       <p>
         <strong>Summary:</strong> With separate Noul judgments, probability no longer piles onto one option, but the estimates are pulled toward the middle: true probabilities of 0.25 and above are underestimated by 13%–17%, and those of 0.1 and below are overestimated by 26%–90%, more so the smaller the probability.
+        This shape resembles human probability judgment: prospect theory finds that people also overweight small probabilities and underweight moderate to large ones [5]. This is an analogy only; it does not explain why Jev behaves this way.
         So Noul outputs cannot be used directly as true probabilities either; they need to be calibrated on real data first. Noul also does not “roll” a result for us, so fair sampling still has to happen outside the model.
       </p>
     </section>
@@ -525,16 +526,13 @@
         <a href="https://docs.typesafe.ai/primitives/choice">https://docs.typesafe.ai/primitives/choice</a>;
         <a href="https://docs.typesafe.ai/primitives/noul">https://docs.typesafe.ai/primitives/noul</a><br />
         [4] Kanta Hayashi. <em>Jev Does Not Play Dice</em>. September 20, 2026.
-        <a href="https://kantahayashiai.github.io/posts/jev-does-not-play-dice/">https://kantahayashiai.github.io/posts/jev-does-not-play-dice/</a>
+        <a href="https://kantahayashiai.github.io/posts/jev-does-not-play-dice/">https://kantahayashiai.github.io/posts/jev-does-not-play-dice/</a><br />
+        [5] A. Tversky, D. Kahneman. <em>Advances in Prospect Theory: Cumulative Representation of Uncertainty</em>. Journal of Risk and Uncertainty, 5(4): 297–323, 1992.
+        <a href="https://doi.org/10.1007/BF00122574">https://doi.org/10.1007/BF00122574</a>
       </p>
       <p class="note">The following sources relate to the experiments in this report, grouped by topic, for further reading.</p>
       <h3>Tests and discussion of Jev</h3>
       <ul>
-        <li>
-          Kanta Hayashi. <a href="https://kantahayashiai.github.io/posts/jev-does-not-play-dice/"><em>Jev Does Not Play Dice</em></a>. September 20, 2026.
-          Asked about a fair die 400 times with Choice, Jev picked 1 every time with an average probability of 0.83; a coin toss got 0.92. With Noul, each face of a six-sided die got about 0.19, but with 20 options the mean was 0.15 (true value 0.05).
-          He also found that a 30% shortage risk stated in a document came out of Choice as about 5%.
-        </li>
         <li>
           TypeSafe. <a href="https://docs.typesafe.ai/model-jaggedness/jev-1.13"><em>Jev 1.13 jaggedness</em></a>. TypeSafe documentation.
           The official list of known weaknesses. It notes that values from the same question asked as a Noul and as a Choice are not directly comparable, and that a question and its negation asked as two Nouls can sum to 1.19; users should not expect arithmetic identities to hold across separate questions.
@@ -565,10 +563,6 @@
         <li>
           P. Pezeshkpour, E. Hruschka. <a href="https://arxiv.org/abs/2308.11483"><em>Large Language Models Sensitivity to The Order of Options in Multiple-Choice Questions</em></a>. 2023.
           Reordering options alone changes accuracy by 13%–75%; models are most affected by position when torn between the top two or three options.
-        </li>
-        <li>
-          A. Tversky, D. Kahneman. <em>Advances in Prospect Theory: Cumulative Representation of Uncertainty</em>. Journal of Risk and Uncertainty, 1992.
-          People overweight small probabilities and underweight moderate to large ones, a shape similar to the curve in Section 6. This is an analogy only; it does not explain why Jev behaves this way.
         </li>
       </ul>
     </section>
