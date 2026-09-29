@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Does Jev Flip Coins?</title>
+  <title>Does Jev Play Dice?</title>
   <style>
     :root {
       --ink: #1a1916;
@@ -200,7 +200,7 @@
 <body>
   <header class="hero">
     <div class="wrap">
-      <h1>Does Jev Flip Coins?</h1>
+      <h1>Does Jev Play Dice?</h1>
       <p class="subtitle">Systematic bias in non-deterministic decisions</p>
       <p class="byline">By Qiang Liu (<a href="https://qiangliu.net">qiangliu.net</a>) · September 28, 2026 · Experiments and writing assisted by AI · <a href="zh/">中文版</a></p>
     </div>
@@ -216,6 +216,7 @@
       <a href="#describe">Guess the animal</a>
       <a href="#favorite">Favorite animal</a>
       <a href="#noul">Noul calibration</a>
+      <a href="#appendix">Appendix</a>
     </div>
   </nav>
   <main class="wrap">
@@ -227,8 +228,9 @@
       <p>
         We previously studied GPT-4’s ability to generate random numbers (<a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf"><em>Does GPT-4 Play Dice?</em></a> [1]). This time we apply a similar approach to Jev.
         Jev is a decision model from TypeSafe [2]. Instead of generating text, it takes a context and a set of options and returns the selected option along with a probability for each option.
+        Kanta Hayashi has also tested Jev with a fair die and found that its probabilities deviate sharply from 1/6 [4]; this report builds on that and focuses on how option position and the words themselves affect the result.
         We ran six experiments with <span class="mono">jev-1.13.0</span>.
-        When all six outcomes should be equally likely, Jev does not produce anything close to a uniform choice or probability distribution. Instead, it clearly favors the option listed first.
+        When all six outcomes should be equally likely and Jev is asked to pick one, it does not produce anything close to a uniform choice or probability distribution. Instead, it clearly favors the option listed first.
         Beyond position, the words themselves matter too: the number 1 and dog receive more probability than the other options.
       </p>
       <p><strong>
@@ -481,7 +483,7 @@
     </section>
 
     <section id="noul">
-      <h2>6. A different question type: judging each face with Noul</h2>
+      <h2>6. Does Jev flip coins? Judging each face with Noul</h2>
       <p>
         TypeSafe offers several question types, set by the <span class="mono">type</span> field of the request [3]. The first five sections all use <strong>Choice</strong>: every option goes into a single question, Jev picks one, and it gives each option a probability, with all probabilities summing to 1.
         Because the options share one budget of probability, whatever one option gains the others must lose; the position and wording effects seen earlier all arise in this comparison.
@@ -490,6 +492,8 @@
         <strong>Noul</strong> is a yes/no question: each question judges whether a single condition holds, and Jev returns only the probability of “yes,” without choosing anything.
         One request can contain several Noul questions. Each is judged independently and cannot see the others’ answers, so their probabilities need not sum to 1.
         To ask about a die with Noul, each face gets its own question, such as <span class="mono">Did the die land on 3?</span>, so the options no longer compete with one another.
+        If Choice is like rolling a die once to pick one of the options, Noul is more like flipping a separate coin for each face, with only two outcomes: “yes” or “no.”
+        Jev never actually flips the coin, though; it only reports the probability of “yes,” that is, how far the coin is weighted toward “yes.”
       </p>
       <p>
         This section uses Noul to test whether Jev estimates the probability of equally likely events accurately. The context reads “a fair N-sided die with faces numbered 1 to N is rolled once,” with N = 2, 3, 4, 6, 8, 10, 12, and 20. Each face is asked separately, and each die is requested 100 times.
@@ -509,18 +513,66 @@
       </p>
     </section>
 
+    <section id="appendix">
+      <h2>Appendix</h2>
+      <h3>References</h3>
+      <p>
+        [1] Qiang Liu. <em>Does GPT-4 Play Dice?</em>
+        <a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf">https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf</a><br />
+        [2] TypeSafe. <em>Introduction to Jev</em>. TypeSafe documentation.
+        <a href="https://docs.typesafe.ai/introduction">https://docs.typesafe.ai/introduction</a><br />
+        [3] TypeSafe. <em>Choice</em>; <em>Noul</em>. TypeSafe documentation.
+        <a href="https://docs.typesafe.ai/primitives/choice">https://docs.typesafe.ai/primitives/choice</a>;
+        <a href="https://docs.typesafe.ai/primitives/noul">https://docs.typesafe.ai/primitives/noul</a><br />
+        [4] Kanta Hayashi. <em>Jev Does Not Play Dice</em>. September 20, 2026.
+        <a href="https://kantahayashiai.github.io/posts/jev-does-not-play-dice/">https://kantahayashiai.github.io/posts/jev-does-not-play-dice/</a>
+      </p>
+      <p class="note">The following sources relate to the experiments in this report, grouped by topic, for further reading.</p>
+      <h3>Tests and discussion of Jev</h3>
+      <ul>
+        <li>
+          Kanta Hayashi. <a href="https://kantahayashiai.github.io/posts/jev-does-not-play-dice/"><em>Jev Does Not Play Dice</em></a>. September 20, 2026.
+          Asked about a fair die 400 times with Choice, Jev picked 1 every time with an average probability of 0.83; a coin toss got 0.92. With Noul, each face of a six-sided die got about 0.19, but with 20 options the mean was 0.15 (true value 0.05).
+          He also found that a 30% shortage risk stated in a document came out of Choice as about 5%.
+        </li>
+        <li>
+          TypeSafe. <a href="https://docs.typesafe.ai/model-jaggedness/jev-1.13"><em>Jev 1.13 jaggedness</em></a>. TypeSafe documentation.
+          The official list of known weaknesses. It notes that values from the same question asked as a Noul and as a Choice are not directly comparable, and that a question and its negation asked as two Nouls can sum to 1.19; users should not expect arithmetic identities to hold across separate questions.
+        </li>
+        <li>
+          Alex Molas. <a href="https://www.alexmolas.com/2026/09/23/jev-cant-be-calibrated.html"><em>Jev can't be calibrated</em></a>. September 23, 2026.
+          Argues that calibration is a joint property of the model and the data distribution, so Jev cannot be calibrated on every user’s data; recommends treating its outputs as ranking scores and recalibrating on a few hundred labeled examples of your own.
+        </li>
+        <li>
+          <a href="https://arxiv.org/abs/2609.27535"><em>KITE: Scaling Jev Population Experiments with Sparse Flagship Calibration</em></a>. arXiv:2609.27535.
+          Using <span class="mono">jev-1.13.0</span>, asking one Noul per option and renormalizing gave a calibration error of 0.027, against 0.23–0.25 for Choice.
+        </li>
+        <li>
+          <a href="https://arxiv.org/abs/2609.29429"><em>Just Ask Jev: Reinforcement Learning for Calibrated Decisions as a Zero-Shot Detector of AI Alignment Failures</em></a>. arXiv:2609.29429.
+          Tests Noul on 31 benchmarks: close to calibrated when pooled, but the median per-benchmark calibration error is 0.168; ranking is good (median AUROC 0.905), and the error comes mainly from an overall shift in probability.
+        </li>
+        <li>
+          Leonard Grazian. <a href="https://leonardgrazian.com/blog/jev-calibration/"><em>Is Jev Calibrated?</em></a>
+          A contrasting view: after tuning the prompt for each dataset, Jev’s calibration error was about 0.03 on two real datasets.
+        </li>
+      </ul>
+      <h3>Related research on large language models</h3>
+      <ul>
+        <li>
+          C. Zheng et al. <a href="https://arxiv.org/abs/2309.03882"><em>Large Language Models Are Not Robust Multiple Choice Selectors</em></a>. ICLR 2024.
+          Finds “selection bias” in multiple-choice questions across 20 models, arising from a preference for particular option labels and for particular positions; proposes estimating the bias by permuting options and then removing it (PriDe).
+        </li>
+        <li>
+          P. Pezeshkpour, E. Hruschka. <a href="https://arxiv.org/abs/2308.11483"><em>Large Language Models Sensitivity to The Order of Options in Multiple-Choice Questions</em></a>. 2023.
+          Reordering options alone changes accuracy by 13%–75%; models are most affected by position when torn between the top two or three options.
+        </li>
+        <li>
+          A. Tversky, D. Kahneman. <em>Advances in Prospect Theory: Cumulative Representation of Uncertainty</em>. Journal of Risk and Uncertainty, 1992.
+          People overweight small probabilities and underweight moderate to large ones, a shape similar to the curve in Section 6. This is an analogy only; it does not explain why Jev behaves this way.
+        </li>
+      </ul>
+    </section>
+
   </main>
-  <footer>
-    <div class="wrap">
-      <strong>References</strong><br />
-      [1] Qiang Liu. <em>Does GPT-4 Play Dice?</em>
-      <a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf">https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf</a><br />
-      [2] TypeSafe. <em>Introduction to Jev</em>. TypeSafe documentation.
-      <a href="https://docs.typesafe.ai/introduction">https://docs.typesafe.ai/introduction</a><br />
-      [3] TypeSafe. <em>Choice</em>; <em>Noul</em>. TypeSafe documentation.
-      <a href="https://docs.typesafe.ai/primitives/choice">https://docs.typesafe.ai/primitives/choice</a>;
-      <a href="https://docs.typesafe.ai/primitives/noul">https://docs.typesafe.ai/primitives/noul</a>
-    </div>
-  </footer>
 </body>
 </html>

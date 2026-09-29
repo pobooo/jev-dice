@@ -1,4 +1,4 @@
-# Jev 抛硬币吗？ / Does Jev Flip Coins?
+# Jev 掷骰子吗？ / Does Jev Play Dice?
 
 **非确定性决策中的系统性偏差 · Systematic bias in non-deterministic decisions**
 
@@ -11,13 +11,13 @@
 
 我们之前研究过 GPT-4 生成随机数的能力（[*Does GPT-4 Play Dice?*](https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf)），这次用类似的思路测试 TypeSafe 的 [Jev 模型](https://docs.typesafe.ai/introduction)（`jev-1.13.0`）。
 
-结论：Jev 不能公平地掷骰子。在没有唯一正确答案的选择中，它的输出会受到选项位置和词语本身的影响，产生系统性偏差：同一道题请求 2000 次，每次都选排在第一的选项。在有唯一正确答案的任务里（根据描述猜动物），选项顺序几乎不影响结果。
+结论：Jev 不能公平地掷骰子。在没有唯一正确答案的选择中，它的输出会受到选项位置和词语本身的影响，产生系统性偏差：同一道题请求 2000 次，每次都选排在第一的选项。在有唯一正确答案的任务里（根据描述猜动物），选项顺序几乎不影响结果。改成对每一面单独问是非题（Noul）后，概率不再集中到一项，但会向中间靠拢：大概率被低估，小概率被高估。
 
 ## Summary
 
 We previously studied GPT-4’s ability to generate random numbers ([*Does GPT-4 Play Dice?*](https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf)). This project applies a similar approach to TypeSafe’s [Jev model](https://docs.typesafe.ai/introduction) (`jev-1.13.0`).
 
-Finding: Jev cannot roll a fair die. When a choice has no single correct answer, its output is influenced by option position and by the words themselves: across 2,000 identical requests it picks the first-listed option every time. On a task with a single correct answer (guessing an animal from a description), option order barely matters.
+Finding: Jev cannot roll a fair die. When a choice has no single correct answer, its output is influenced by option position and by the words themselves: across 2,000 identical requests it picks the first-listed option every time. On a task with a single correct answer (guessing an animal from a description), option order barely matters. When each face is instead judged by a separate yes/no question (Noul), probability no longer piles onto one option, but it is pulled toward the middle: large probabilities are underestimated and small ones overestimated.
 
 ## 目录结构 / Layout
 
@@ -31,6 +31,8 @@ results/         原始请求记录与汇总 / raw request logs and summaries
   dice_numbers_reshuffle/  再次打乱数字 / number die, reshuffled
   animal_guess/            根据描述猜动物 / guess the animal
   animal_favorite/         最喜欢的动物 / favorite animal
+  noul_calibration/        Noul 校准：2–20 面公平骰 / Noul calibration on fair 2–20-sided dice
+  noul_numbers/, noul_animals/, coin*/   Noul 骰子与抛硬币补充实验（报告中未使用）/ extra Noul dice and coin runs (not used in the report)
 ```
 
 骰子结果里的 `P3plus`、`P3altplus`（题目中额外强调“每一面概率相同”）结果与不强调时基本一致，报告中未使用，原始数据仍保留。
@@ -53,6 +55,14 @@ python scripts/animal_decide_dataset.py
 
 # 最喜欢的动物 / favorite animal (all 720 orderings)
 python scripts/animal_favorite.py
+
+# Noul 校准 / Noul calibration (8 dice × 100 requests)
+python scripts/noul_calibration.py
+
+# 补充实验（报告中未使用）/ extra runs (not used in the report)
+python scripts/dice_noul.py --labels numbers
+python scripts/dice_noul.py --labels animals
+python scripts/coin_jev.py --coin heads_tails   # 也可用 / also: heads_tails_stated, tails_heads_stated, dog_cat, cat_dog
 
 # 报告图表：先生成中文图，再翻译出英文图 / report charts: Chinese first, then English copies
 python scripts/generate_report_charts.py
