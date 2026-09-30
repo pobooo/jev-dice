@@ -69,6 +69,25 @@ python scripts/generate_report_charts.py
 python scripts/translate_report_charts.py
 ```
 
+## 引用 / Citation
+
+Qiang Liu. *Does Jev Play Dice? Systematic Bias in Non-deterministic Decisions*. Technical report, September 2026. https://qiangliu.net/jev-dice/
+
+```bibtex
+@techreport{liu2026jevdice,
+  author      = {Qiang Liu},
+  title       = {Does {Jev} Play Dice? Systematic Bias in Non-deterministic Decisions},
+  institution = {qiangliu.net},
+  type        = {Technical report},
+  year        = {2026},
+  month       = sep,
+  url         = {https://qiangliu.net/jev-dice/},
+  note        = {Code and data: \url{https://github.com/pobooo/jev-dice}}
+}
+```
+
+## 本地预览 / Preview
+
 本地预览报告 / Preview locally:
 
 ```bash

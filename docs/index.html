@@ -184,6 +184,14 @@
       font-size: 0.86em;
     }
     .note { color: var(--muted); font-size: 15px; }
+    pre {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 12px 14px;
+      overflow-x: auto;
+      font-size: 14px;
+      line-height: 1.5;
+    }
     footer {
       border-top: 1px solid var(--line);
       padding: 28px 24px 48px;
@@ -565,6 +573,22 @@
           Reordering options alone changes accuracy by 13%–75%; models are most affected by position when torn between the top two or three options.
         </li>
       </ul>
+      <h3>How to cite</h3>
+      <p>
+        Qiang Liu. <em>Does Jev Play Dice? Systematic Bias in Non-deterministic Decisions</em>. Technical report, September 2026.
+        <a href="https://qiangliu.net/jev-dice/">https://qiangliu.net/jev-dice/</a>
+      </p>
+      <p>Code and data: <a href="https://github.com/pobooo/jev-dice">https://github.com/pobooo/jev-dice</a></p>
+      <pre><code>@techreport{liu2026jevdice,
+  author      = {Qiang Liu},
+  title       = {Does {Jev} Play Dice? Systematic Bias in Non-deterministic Decisions},
+  institution = {qiangliu.net},
+  type        = {Technical report},
+  year        = {2026},
+  month       = sep,
+  url         = {https://qiangliu.net/jev-dice/},
+  note        = {Code and data: \url{https://github.com/pobooo/jev-dice}}
+}</code></pre>
     </section>
 
   </main>

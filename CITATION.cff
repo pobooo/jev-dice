@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this report, code, or data, please cite it as below."
+title: "jev-dice: Experiments and data for \"Does Jev Play Dice?\""
+authors:
+  - family-names: Liu
+    given-names: Qiang
+    website: "https://qiangliu.net"
+repository-code: "https://github.com/pobooo/jev-dice"
+url: "https://qiangliu.net/jev-dice/"
+date-released: 2026-09-28
+preferred-citation:
+  type: report
+  title: "Does Jev Play Dice? Systematic Bias in Non-deterministic Decisions"
+  authors:
+    - family-names: Liu
+      given-names: Qiang
+  institution:
+    name: "qiangliu.net"
+  year: 2026
+  month: 9
+  url: "https://qiangliu.net/jev-dice/"
