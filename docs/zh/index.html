@@ -91,6 +91,8 @@
       font-size: 22px;
       font-style: italic;
     }
+    .answer p { margin: 0; }
+    .answer p + p { margin-top: 12px; }
     .stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -230,9 +232,10 @@
   <main class="wrap">
     <section id="conclusion">
       <h2>结论</h2>
-      <p class="answer">
-        Jev 不能公平地掷骰子。更一般地说，在没有唯一正确答案的选择中，它的输出会受到选项位置和词语本身的影响，产生系统性偏差。
-      </p>
+      <div class="answer">
+        <p>Jev 不能公平地掷骰子。更一般地说，在没有唯一正确答案的选择中，它的输出会受到选项位置和词语本身的影响，产生系统性偏差。</p>
+        <p>这些偏差说明 Jev 没有遵循最大熵原则 [6]：对题目信息没有确定的部分，它相当于做了多余的假设，可能使实际应用存在缺陷。</p>
+      </div>
       <p>
         我们之前研究过 GPT-4 生成随机数的能力（<a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf"><em>Does GPT-4 Play Dice?</em></a> [1]），这次沿用类似的思路测试 Jev。
         Jev 是 TypeSafe 推出的决策模型 [2]：它不生成文字，而是根据给定的题目背景和一组选项，返回选中的选项以及每个选项的概率。
@@ -302,7 +305,7 @@
         <li>
           <div>
             <strong>这种偏差可能进入实际应用</strong>
-            <p>在推荐、排序、路由或候选方案选择中，靠前选项和更讨喜的词语可能被高估。题目越缺少明确证据、选项越接近，风险越高。</p>
+            <p>在推荐、排序、路由或候选方案选择中，靠前选项和更讨喜的词语可能被高估，尤其是在缺少判断依据、多个选项都可能合理的时候。</p>
           </div>
         </li>
       </ol>
@@ -536,7 +539,9 @@
         [4] Kanta Hayashi. <em>Jev Does Not Play Dice</em>. 2026 年 9 月 20 日。
         <a href="https://kantahayashiai.github.io/posts/jev-does-not-play-dice/">https://kantahayashiai.github.io/posts/jev-does-not-play-dice/</a><br />
         [5] A. Tversky, D. Kahneman. <em>Advances in Prospect Theory: Cumulative Representation of Uncertainty</em>. Journal of Risk and Uncertainty, 5(4): 297–323, 1992.
-        <a href="https://doi.org/10.1007/BF00122574">https://doi.org/10.1007/BF00122574</a>
+        <a href="https://doi.org/10.1007/BF00122574">https://doi.org/10.1007/BF00122574</a><br />
+        [6] E. T. Jaynes. <em>Information Theory and Statistical Mechanics</em>. Physical Review, 106(4): 620–630, 1957.
+        <a href="https://doi.org/10.1103/PhysRev.106.620">https://doi.org/10.1103/PhysRev.106.620</a>
       </p>
       <p class="note">以下资料与本文的实验相关，按主题整理，供进一步阅读。</p>
       <h3>针对 Jev 的测试与讨论</h3>

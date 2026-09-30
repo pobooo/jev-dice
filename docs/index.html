@@ -91,6 +91,8 @@
       font-size: 22px;
       font-style: italic;
     }
+    .answer p { margin: 0; }
+    .answer p + p { margin-top: 12px; }
     .stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -230,9 +232,10 @@
   <main class="wrap">
     <section id="conclusion">
       <h2>Conclusion</h2>
-      <p class="answer">
-        Jev cannot roll a fair die. More generally, when a choice has no single correct answer, its output is influenced by the position of the options and by the words themselves, producing systematic bias.
-      </p>
+      <div class="answer">
+        <p>Jev cannot roll a fair die. More generally, when a choice has no single correct answer, its output is influenced by the position of the options and by the words themselves, producing systematic bias.</p>
+        <p>These biases show that Jev does not follow the maximum entropy principle [6]: when the question lacks the information to settle the answer, it in effect makes unwarranted assumptions. This may introduce flaws into real applications.</p>
+      </div>
       <p>
         We previously studied GPT-4’s ability to generate random numbers (<a href="https://qiangliu.net/publications/Does_GPT_Play_Dice.pdf"><em>Does GPT-4 Play Dice?</em></a> [1]). This time we apply a similar approach to Jev.
         Jev is a decision model from TypeSafe [2]. Instead of generating text, it takes a context and a set of options and returns the selected option along with a probability for each option.
@@ -302,7 +305,7 @@
         <li>
           <div>
             <strong>This bias can carry into real applications</strong>
-            <p>In recommendation, ranking, routing, or candidate selection, options listed earlier and more appealing words may be overrated. The weaker the evidence and the closer the options, the higher the risk.</p>
+            <p>In recommendation, ranking, routing, or candidate selection, options listed earlier and more appealing words may be overrated, especially when there is little evidence to decide by and several options are plausible.</p>
           </div>
         </li>
       </ol>
@@ -536,7 +539,9 @@
         [4] Kanta Hayashi. <em>Jev Does Not Play Dice</em>. September 20, 2026.
         <a href="https://kantahayashiai.github.io/posts/jev-does-not-play-dice/">https://kantahayashiai.github.io/posts/jev-does-not-play-dice/</a><br />
         [5] A. Tversky, D. Kahneman. <em>Advances in Prospect Theory: Cumulative Representation of Uncertainty</em>. Journal of Risk and Uncertainty, 5(4): 297–323, 1992.
-        <a href="https://doi.org/10.1007/BF00122574">https://doi.org/10.1007/BF00122574</a>
+        <a href="https://doi.org/10.1007/BF00122574">https://doi.org/10.1007/BF00122574</a><br />
+        [6] E. T. Jaynes. <em>Information Theory and Statistical Mechanics</em>. Physical Review, 106(4): 620–630, 1957.
+        <a href="https://doi.org/10.1103/PhysRev.106.620">https://doi.org/10.1103/PhysRev.106.620</a>
       </p>
       <p class="note">The following sources relate to the experiments in this report, grouped by topic, for further reading.</p>
       <h3>Tests and discussion of Jev</h3>
